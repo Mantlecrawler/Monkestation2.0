@@ -247,6 +247,7 @@
 #include "traitor.dm"
 #include "trick_weapon_icons.dm"
 #include "turf_icons.dm"
+#include "spies.dm"
 #include "tutorial_sanity.dm"
 #include "unequip_defib.dm"
 #include "unit_test.dm"
