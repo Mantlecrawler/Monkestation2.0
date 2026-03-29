@@ -205,6 +205,7 @@
 	if(in_range(user, src) || isobserver(user))
 		. += span_notice("The status display reads: Storing up to <b>[rmat.local_size]</b> material units.<br>Material consumption at <b>[component_coeff*100]%</b>.<br>Build time reduced by <b>[100-time_coeff*100]%</b>.")
 	. += span_notice("[EXAMINE_HINT("Alt-click")] to rotate the output direction.")
+	. += span_notice("[EXAMINE_HINT("Click-drag")] in a direciton to set it to output in that direction")
 
 /obj/machinery/mecha_part_fabricator/click_alt(mob/living/user)
 	drop_direction = null
