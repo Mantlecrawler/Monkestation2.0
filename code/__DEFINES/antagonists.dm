@@ -249,6 +249,9 @@ GLOBAL_LIST_INIT(ai_employers, list(
 /// Checks if the given mob is a abductee.
 #define IS_ABDUCTEE(mob) (mob.mind?.has_antag_datum(/datum/antagonist/abductee))
 
+/// Checks if the given mob is a spy.
+#define IS_SPY(mob) (mob.mind?.has_antag_datum(/datum/antagonist/spy))
+
 // Antag resource defines
 #define ANTAG_RESOURCE_DARKSPAWN "psi"
 

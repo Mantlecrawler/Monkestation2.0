@@ -31,6 +31,8 @@
 	VAR_FINAL/initalized = FALSE
 	/// Whether the bounty has been completed.
 	VAR_FINAL/claimed = FALSE
+	/// What pool we picked the loot from.
+	VAR_FINAL/loot_difficulty
 	/// What uplink item the bounty will reward on completion.
 	VAR_FINAL/datum/uplink_item/reward_item
 
@@ -70,15 +72,46 @@
 
 /// Selects what uplink item the bounty will reward on completion.
 /datum/spy_bounty/proc/select_reward(datum/spy_bounty_handler/handler)
-	var/list/loot_pool = handler.possible_uplink_items[difficulty]
+	loot_difficulty = difficulty
+
+	var/list/loot_pool
+	// work backwards from the highest difficulty loot pool to find one that has items
+	for(var/i in length(handler.possible_uplink_items) to 1 step -1)
+		var/pool_tier = handler.possible_uplink_items[i]
+		// we're not looking for this difficult, skip
+		if(pool_tier != loot_difficulty)
+			continue
+		// we found our difficulty's loot pool, if it has items we're done
+		loot_pool = handler.possible_uplink_items[pool_tier]
+		if(length(loot_pool) || i == 1)
+			break
+		// if our difficult does not have items, and we're not at the lowest difficulty, step down and try again
+		loot_difficulty = handler.possible_uplink_items[i - 1]
 
 	if(!length(loot_pool))
-		reward_item = /datum/uplink_item/bundles_tc/telecrystal
+		reward_item = SStraitor.uplink_items_by_type[/datum/uplink_item/bundles_tc/telecrystal]
 		return // future todo : add some junk items for when we run out of items
 
 	reward_item = pick(loot_pool)
+	// we remove here, rather than on claim, to reduce the chance of duplicate rewards in a single batch
+	// otherwise it would be not only possible, but *likely* to get the same reward simultaneously across bounties
+	// (though the reason this is a probability is so there is a rare chance this can happen anyways, for the fun of it)
 	if(prob(80))
 		loot_pool -= reward_item
+
+/**
+ * Called when the bounty gets cleared after the end of a bounty period
+ *
+ * * handler - The bounty handler that is handling this bounty.
+ */
+/datum/spy_bounty/proc/clear_bounty(datum/spy_bounty_handler/handler)
+	ASSERT(initalized, "Trying to clear an uninitialized bounty!")
+
+	// another chance to return unclaimed reward items to the bounty pool
+	if(!claimed && reward_item && prob(40))
+		handler.possible_uplink_items[loot_difficulty || difficulty] |= reward_item
+
+	qdel(src)
 
 /**
  * Checks if the passed movable is a valid target for this bounty.
@@ -132,16 +165,34 @@
 /datum/spy_bounty/proc/clean_up_stolen_item(atom/movable/stealing, mob/living/spy)
 	do_sparks(3, FALSE, stealing)
 
+	if(isitem(stealing) && stealing.loc == spy)
+		// get it out of our inventory before we mess with it to prevent any weirdness.
+		// bypasses nodrop - if you want, add a bespoke check for that higher up the chain
+		spy.temporarilyRemoveItemFromInventory(stealing, force = TRUE)
+		// also check for DROPDEL
+		if(QDELETED(stealing))
+			return
+
 	// Don't mess with it while it's going away
+	var/had_attack_hand_interaction = stealing.interaction_flags_atom & INTERACT_ATOM_ATTACK_HAND
 	stealing.interaction_flags_atom &= ~INTERACT_ATOM_ATTACK_HAND
+	var/was_anchored = stealing.anchored
 	stealing.anchored = TRUE
 	// Add some pizzazz
-	animate(stealing, time = 0.5 SECONDS, transform = matrix(stealing.transform).Scale(0.01), easing = CUBIC_EASING)
+	animate(stealing, time = 0.5 SECONDS, transform = stealing.transform.Scale(0.01), easing = CUBIC_EASING)
 
 	if(isitem(stealing) && ((stealing.resistance_flags & INDESTRUCTIBLE) || prob(black_market_prob)))
-		addtimer(CALLBACK(src, PROC_REF(send_to_black_market), stealing), 0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(send_to_black_market), stealing, had_attack_hand_interaction, was_anchored), 0.5 SECONDS)
 	else
-		QDEL_IN(stealing, 0.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(finish_cleanup), stealing), 0.5 SECONDS)
+
+/**
+ * Called when cleaning up a stolen atom that was NOT sent to the black market.
+ *
+ * * stealing - The item that was stolen.
+ */
+/datum/spy_bounty/proc/finish_cleanup(atom/movable/stealing)
+	qdel(stealing)
 
 /**
  * Handles putting the passed movable up on the black market.
@@ -150,33 +201,31 @@
  *
  * * thing - The item to put up on the black market.
  */
-/datum/spy_bounty/proc/send_to_black_market(atom/movable/thing)
+/datum/spy_bounty/proc/send_to_black_market(atom/movable/thing, had_attack_hand_interaction, was_anchored)
 	if(QDELETED(thing)) // Just in case anything does anything weird
 		return FALSE
 
-	thing.interaction_flags_atom = initial(thing.interaction_flags_atom)
-	thing.anchored = initial(thing.anchored)
+	///reset the appearance and all.
+	if(had_attack_hand_interaction)
+		thing.interaction_flags_atom |= INTERACT_ATOM_ATTACK_HAND
+	thing.anchored = was_anchored
+	thing.transform = thing.transform.Scale(100)
 	thing.moveToNullspace()
 
-	var/datum/market_item/new_item = new()
-	new_item.item = thing
-	new_item.name = "Stolen [thing.name]"
-	new_item.desc = "A [thing.name], stolen from somewhere on the station. Whoever owned it probably wouldn't be happy to see it here."
-	new_item.category = "Fenced Goods"
-	new_item.stock = 1
-	new_item.availability_prob = 100
-
+	var/item_price
 	switch(difficulty)
 		if(SPY_DIFFICULTY_EASY)
-			new_item.price = PAYCHECK_COMMAND * 2.5
+			item_price = PAYCHECK_COMMAND * 2.5
 		if(SPY_DIFFICULTY_MEDIUM)
-			new_item.price = PAYCHECK_COMMAND * 5
+			item_price = PAYCHECK_COMMAND * 5
 		if(SPY_DIFFICULTY_HARD)
-			new_item.price = PAYCHECK_COMMAND * 10
+			item_price = PAYCHECK_COMMAND * 10
 
-	new_item.price += rand(0, PAYCHECK_COMMAND * 5)
+	item_price += rand(0, PAYCHECK_COMMAND * 5)
 	if(thing.resistance_flags & INDESTRUCTIBLE)
-		new_item.price *= 2
+		item_price *= 2
+
+	var/datum/market_item/stolen_good/new_item = new(thing, item_price)
 
 	return SSblackmarket.markets[/datum/market/blackmarket].add_item(new_item)
 
@@ -245,16 +294,13 @@
 		return FALSE
 
 	desired_item = pick(valid_possible_items)
-	// We need to do some snowflake for items that do exist vs generic items
-	var/list/obj/item/existing_items = GLOB.steal_item_handler.objectives_by_path[desired_item.targetitem]
-	var/obj/item/the_item = length(existing_items) ? pick(existing_items) : desired_item.targetitem
-	var/the_item_name = istype(the_item) ? the_item.name : initial(the_item.name)
-	name = "[the_item_name] [difficulty == SPY_DIFFICULTY_HARD ? "Grand ":""]Theft"
-	help = "Steal any [the_item_name][desired_item.steal_hint ? ": [desired_item.steal_hint]" : "."]"
+	name = "[desired_item.name] [difficulty == SPY_DIFFICULTY_HARD ? "Grand ":""]Theft"
+	help = "Steal [desired_item.name][desired_item.steal_hint ? ": [desired_item.steal_hint]" : "."]"
 	return TRUE
 
 /datum/spy_bounty/objective_item/is_stealable(atom/movable/stealing)
-	return istype(stealing, desired_item.targetitem) && desired_item.check_special_completion(stealing)
+	return istype(stealing, desired_item.targetitem) \
+		&& desired_item.check_special_completion(stealing)
 
 /datum/spy_bounty/objective_item/random_easy
 	difficulty = SPY_DIFFICULTY_EASY
@@ -310,6 +356,10 @@
 		qdel(part)
 
 	return TRUE
+
+/datum/spy_bounty/machine/finish_cleanup(obj/machinery/stealing)
+	stealing.dump_inventory_contents()
+	return ..()
 
 /datum/spy_bounty/machine/init_bounty(datum/spy_bounty_handler/handler)
 	if(isnull(target_type))
@@ -408,6 +458,7 @@
 		/obj/machinery/computer/prisoner/management,
 		/obj/machinery/computer/rdconsole,
 		/obj/machinery/computer/records/security,
+		/obj/machinery/computer/dna_console,
 		/obj/machinery/computer/security, // Requires breaking into a sec checkpoint, but not too hard, many are never visited
 		/obj/machinery/dna_scannernew,
 		/obj/machinery/mecha_part_fabricator,
@@ -436,9 +487,9 @@
 /datum/spy_bounty/machine/random/hard/ai_sat_teleporter
 	random_options = list(
 		/obj/machinery/teleport,
-		/obj/machinery/computer/teleporter.
+		/obj/machinery/computer/teleporter,
 	)
-	location_type = /area/station/ai_monitored/aisat
+	location_type = /area/station/ai_monitored/turret_protected/aisat/foyer
 
 /// Subtype for a bounty that targets a specific crew member
 /datum/spy_bounty/targets_person
@@ -617,16 +668,23 @@
 	theft_time = 10 SECONDS
 	black_market_prob = 0
 	/// What typepath of bot we want to steal.
-	var/mob/living/simple_animal/bot/bot_type
+	var/mob/living/bot_type
 	/// Weakref to the bot we want to steal.
 	VAR_FINAL/datum/weakref/target_bot_ref
 
 /datum/spy_bounty/some_bot/get_dupe_protection_key(atom/movable/stealing)
 	return bot_type
 
+/datum/spy_bounty/some_bot/finish_cleanup(mob/living/simple_animal/bot/stealing)
+	if(stealing.client)
+		to_chat(stealing, span_deadsay("You've been stolen! You are shipped off to the black market and taken apart for spare parts..."))
+		stealing.investigate_log("stole by a spy (and deleted)", INVESTIGATE_DEATHS)
+		stealing.ghostize()
+	return ..()
+
 /datum/spy_bounty/some_bot/init_bounty(datum/spy_bounty_handler/handler)
 	for(var/datum/spy_bounty/some_bot/existing_bounty in handler.get_all_bounties())
-		var/mob/living/simple_animal/bot/existing_bot_type = existing_bounty.bot_type
+		var/mob/living/existing_bot_type = existing_bounty.bot_type
 		// ensures we don't get two similar bounties.
 		// may occasionally cast a wider net than we'd desire, but it's not that bad.
 		if(ispath(bot_type, initial(existing_bot_type.parent_type)))
@@ -673,10 +731,10 @@
 	bot_type = /mob/living/simple_animal/bot/secbot/pingsky
 	help = "Abduct Officer Pingsky - commonly found protecting the station's AI."
 
-/datum/spy_bounty/some_bot/scrubbs
+/datum/spy_bounty/some_bot/scrubs
 	difficulty = SPY_DIFFICULTY_EASY
 	bot_type = /mob/living/basic/bot/cleanbot/medbay
-	help = "Abduct Scrubbs, MD - commonly found mopping up blood in Medbay."
+	help = "Abduct Scrubs, MD - commonly found mopping up blood in Medbay."
 
-/datum/spy_bounty/some_bot/scrubbs/can_claim(mob/user)
+/datum/spy_bounty/some_bot/scrubs/can_claim(mob/user)
 	return !(user.mind?.assigned_role.departments_bitflags & DEPARTMENT_BITFLAG_MEDICAL)
