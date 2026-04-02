@@ -13,6 +13,8 @@
 	slot_flags = ITEM_SLOT_BELT
 	req_access = list(ACCESS_SECURITY)
 	custom_price = PAYCHECK_COMMAND * 2.5 //Comes out to 50 with the security dept discount on the vendor
+	/// Skips access checks, if true
+	var/access_check_skipped = FALSE
 
 /obj/item/citationinator/attack_self(mob/living/user, modifiers)
 	if(!isliving(user))
@@ -22,12 +24,25 @@
 	issue_fine(user)
 	icon_state = initial(icon_state)
 
+/obj/item/citationinator/emag_act(mob/user, obj/item/card/emag/emag_card)
+	. = ..()
+	if(access_check_skipped)
+		balloon_alert(user, "no access locks to override!")
+	else
+		access_check_skipped = TRUE
+		balloon_alert(user, "access lock overridden")
+
+/obj/item/citationinator/examine(mob/user)
+	. = ..()
+	if(access_check_skipped)
+		. += span_notice("It's ID card reader is sparking and seems faulty.")
 /obj/item/citationinator/proc/issue_fine(mob/living/user)
 	var/obj/item/card/id/using_id = user.get_idcard()
-	if(!istype(using_id) || QDELING(using_id))
+	if((!istype(using_id) || QDELING(using_id)) && !access_check_skipped)
+		balloon_alert(user, "no ID found!")
 		return
-	if(!check_access(using_id))
-		to_chat(user, span_warning("Insufficient access to issue citations!"))
+	if(!check_access(using_id) && !access_check_skipped)
+		balloon_alert(user, "no access!")
 		return
 	var/victim_name
 	var/on_crew = TRUE
