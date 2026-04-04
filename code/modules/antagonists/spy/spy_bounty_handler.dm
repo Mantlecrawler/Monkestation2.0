@@ -129,7 +129,8 @@
 
 /// Helper to attempt to add the passed uplink item datum to the possible bounty pool(s).
 /datum/spy_bounty_handler/proc/try_add_to_loot_pool(datum/uplink_item/item)
-	if(isnull(item.item) || item.item == ABSTRACT_UPLINK_ITEM || !(item.purchasable_from & UPLINK_SPY))
+	//This is where we restrict what items can be obtained at all - So far, anything that excludes uplink spy, anything from clown/nukeops, anything that is abstract, and anything that locks uplinks.
+	if(isnull(item.item) || item.item == ABSTRACT_UPLINK_ITEM || !(item.purchasable_from & UPLINK_SPY) || (item.purchasable_from & UPLINK_CLOWN_OPS && !(item.purchasable_from & UPLINK_TRAITORS)) || (item.purchasable_from & UPLINK_NUKE_OPS && !(item.purchasable_from & UPLINK_TRAITORS))  || (item.lock_other_purchases))
 		return FALSE
 
 	// This will have some overlap, and that's intentional -

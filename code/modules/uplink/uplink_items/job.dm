@@ -207,6 +207,7 @@
 	cost = 12
 	item = /obj/item/storage/box/syndie_kit/mimery
 	restricted_roles = list(JOB_MIME)
+	purchasable_from = parent_type::purchasable_from & ~UPLINK_SPY
 	surplus = 0
 
 /datum/uplink_item/role_restricted/laser_arm
@@ -232,6 +233,7 @@
 	progression_minimum = 10 MINUTES
 	cost = 10
 	item = /obj/item/pneumatic_cannon/pie/selfcharge
+	purchasable_from = parent_type::purchasable_from & ~UPLINK_SPY
 	restricted_roles = list(JOB_CLOWN)
 
 /datum/uplink_item/role_restricted/clown_bomb
@@ -307,6 +309,7 @@
 	cost = 10
 	restricted_roles = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST, JOB_XENOBIOLOGIST) //Monkestation edit: xenobiology
 	surplus = 10
+	purchasable_from = parent_type::purchasable_from & ~UPLINK_SPY
 
 /datum/uplink_item/role_restricted/blastcannon
 	name = "Blast Cannon"
@@ -318,6 +321,7 @@
 	item = /obj/item/gun/blastcannon
 	cost = 14 //High cost because of the potential for extreme damage in the hands of a skilled scientist.
 	restricted_roles = list(JOB_RESEARCH_DIRECTOR, JOB_SCIENTIST)
+	purchasable_from = parent_type::purchasable_from & ~UPLINK_SPY
 	surplus = 5
 
 /datum/uplink_item/role_restricted/evil_seedling
@@ -325,6 +329,7 @@
 	desc = "A rare seed we have recovered that grows into a dangerous species that will aid you with your tasks!"
 	item = /obj/item/seeds/seedling/evil
 	cost = 8
+	purchasable_from = parent_type::purchasable_from & ~UPLINK_SPY
 	restricted_roles = list(JOB_BOTANIST)
 
 //Boombots ported from monkestation 1
