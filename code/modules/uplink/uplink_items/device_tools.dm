@@ -303,7 +303,7 @@
 	desc = "A contract abusing a loophole found by plasmamen to invade halls with harmful gases \
 			without repercussion or warning, garnering no attention from any higher powers. \
 			Has to be signed by purchaser to be considered valid."
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_SPY)
+	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
 	item = /obj/item/card/plasma_license
 	cost = 20
 
