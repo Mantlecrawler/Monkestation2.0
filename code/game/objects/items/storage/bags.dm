@@ -467,8 +467,6 @@
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/cup/tube,
-		/obj/item/reagent_containers/cup/vial,
-		/obj/item/reagent_containers/medipen,
 		/obj/item/reagent_containers/medigel,
 		/obj/item/reagent_containers/pill,
 		/obj/item/reagent_containers/syringe,
@@ -500,7 +498,7 @@
 		/obj/item/reagent_containers/cup/beaker,
 		/obj/item/reagent_containers/cup/bottle,
 		/obj/item/reagent_containers/cup/tube,
-		/obj/item/reagent_containers/medipen,
+		/obj/item/reagent_containers/hypospray/medipen,
 		/obj/item/reagent_containers/syringe,
 		/obj/item/weapon/virusdish,//Monkestation Addition
 		/obj/item/food/monkeycube/mouse,//Monkestation Addition
@@ -568,12 +566,12 @@
 	atom_storage.max_slots = 40
 	atom_storage.max_total_storage = 100
 	atom_storage.set_holdable(list(
-		/obj/item/ammo_casing/harpoon
+		/obj/item/ammo_casing/caseless/harpoon
 		))
 
 /obj/item/storage/bag/harpoon_quiver/PopulateContents()
 	for(var/i in 1 to 40)
-		new /obj/item/ammo_casing/harpoon(src)
+		new /obj/item/ammo_casing/caseless/harpoon(src)
 
 /obj/item/storage/bag/rebar_quiver
 	name = "rebar quiver"

@@ -9,7 +9,6 @@
 		/datum/surgery_step/incise,
 		/datum/surgery_step/extract_organ,
 		/datum/surgery_step/gland_insert,
-		/datum/surgery_step/close,
 	)
 
 /datum/surgery/organ_extraction/can_start(mob/user, mob/living/carbon/target)

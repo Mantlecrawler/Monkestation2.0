@@ -1494,10 +1494,9 @@
 /obj/machinery/door/airlock/proc/prison_open()
 	if((obj_flags & EMAGGED) || is_probably_external_airlock()) // monkestation edit: STOP SPACING ENGI
 		return
-	if(locked)
-		unbolt()
+	locked = FALSE
 	open()
-	bolt()
+	locked = TRUE
 	return
 
 // gets called when a player uses an airlock painter on this airlock

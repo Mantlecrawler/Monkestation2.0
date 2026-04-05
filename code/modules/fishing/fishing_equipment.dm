@@ -15,8 +15,6 @@
 	var/list/fishing_line_traits
 	/// Color of the fishing line
 	var/line_color = "#808080"
-	///The amount of range this fishing line adds to casting
-	var/cast_range = 2
 
 /obj/item/fishing_line/reinforced
 	name = "reinforced fishing line reel"
@@ -38,7 +36,6 @@
 	icon_state = "reel_red"
 	fishing_line_traits = FISHING_LINE_BOUNCY
 	line_color = "#99313f"
-	cast_range = 3
 
 /obj/item/fishing_line/sinew
 	name = "fishing sinew"

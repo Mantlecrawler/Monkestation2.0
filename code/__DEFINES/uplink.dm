@@ -9,6 +9,9 @@
 /// This item is purchasable to clown ops
 #define UPLINK_CLOWN_OPS (1 << 2)
 
+/// Can be randomly given to spies for their bounties
+#define UPLINK_SPY (1 << 4)
+
 /// Progression gets turned into a user-friendly form. This is just an abstract equation that makes progression not too large.
 #define DISPLAY_PROGRESSION(time) round(time/60, 0.01)
 
@@ -23,3 +26,8 @@
 
 /// Minimal cost for an item to be eligible for a discount
 #define TRAITOR_DISCOUNT_MIN_PRICE 4
+
+/// Lower threshold for which an uplink items's TC cost is considered "low" for spy bounties picking rewards
+#define SPY_LOWER_COST_THRESHOLD 5
+/// Upper threshold for which an uplink items's TC cost is considered "high" for spy bounties picking rewards
+#define SPY_UPPER_COST_THRESHOLD 10

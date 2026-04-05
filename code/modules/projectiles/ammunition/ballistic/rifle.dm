@@ -126,6 +126,7 @@
 	custom_materials = AMMO_MATS_AP
 	advanced_print_req = TRUE
 
+
 ///Mining heavy rifle
 
 /obj/item/ammo_casing/minerjdj

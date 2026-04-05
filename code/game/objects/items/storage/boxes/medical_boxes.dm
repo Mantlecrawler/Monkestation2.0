@@ -25,31 +25,7 @@
 
 /obj/item/storage/box/medipens/PopulateContents()
 	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/medipen(src)
-
-
-/obj/item/storage/box/cup/vials
-	name = "box of vials"
-	illustration = "vial"
-
-/obj/item/storage/box/cup/vials/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/cup/vial(src)
-
-/obj/item/storage/box/cup/vials/large
-	name = "box of large vials"
-
-/obj/item/storage/box/cup/vials/large/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/cup/vial/large(src)
-
-/obj/item/storage/box/cup/vials/bluespace
-	name = "box of bluespace vials"
-
-/obj/item/storage/box/cup/vials/bluespace/PopulateContents()
-	for(var/i in 1 to 7)
-		new /obj/item/reagent_containers/cup/vial/bluespace(src)
-
+		new /obj/item/reagent_containers/hypospray/medipen(src)
 
 /obj/item/storage/box/medipens/utility
 	name = "stimpack value kit"
@@ -59,7 +35,7 @@
 /obj/item/storage/box/medipens/utility/PopulateContents()
 	..() // includes regular medipens.
 	for(var/i in 1 to 5)
-		new /obj/item/reagent_containers/medipen/stimpack(src)
+		new /obj/item/reagent_containers/hypospray/medipen/stimpack(src)
 
 /obj/item/storage/box/beakers
 	name = "box of beakers"
@@ -151,17 +127,5 @@
 		/obj/item/reagent_containers/cup/beaker/meta/atropine = 1,
 		/obj/item/reagent_containers/cup/beaker/meta/salbutamol = 1,
 		/obj/item/reagent_containers/cup/beaker/meta/rezadone = 1,
-	)
-	generate_items_inside(items_inside, src)
-
-/obj/item/storage/box/evilmeds/evilhypos
-	name = "box of premimum hypospray vials"
-	desc = "Contains a large number of vials and beakers filled with premimum medical supplies. Straight from Interdyne Pharmceuticals!"
-	illustration = "vial"
-
-/obj/item/storage/box/evilmeds/evilhypos/PopulateContents()
-	var/list/items_inside = list(
-		/obj/item/reagent_containers/cup/beaker/meta/combat_juice = 1,
-		/obj/item/reagent_containers/cup/vial/bluespace = 6,
 	)
 	generate_items_inside(items_inside, src)

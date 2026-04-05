@@ -21,6 +21,7 @@
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
 	sharpness = SHARP_EDGED
 	armor_type = /datum/armor/item_knife
+	var/bayonet = FALSE //Can this be attached to a gun?
 	wound_bonus = 5
 	bare_wound_bonus = 15
 	tool_behaviour = TOOL_KNIFE
@@ -117,25 +118,21 @@
 	name = "combat knife"
 	icon_state = "buckknife"
 	desc = "A military combat utility survival knife."
-	embed_type = /datum/embedding/combat_knife
+	embedding = list("pain_mult" = 4, "embed_chance" = 65, "fall_chance" = 10, "ignore_throwspeed_threshold" = TRUE)
 	force = 17 // MONKESTATION EDIT ORG: 20
 	throwforce = 20
 	attack_verb_continuous = list("slashes", "stabs", "slices", "tears", "lacerates", "rips", "cuts")
 	attack_verb_simple = list("slash", "stab", "slice", "tear", "lacerate", "rip", "cut")
-
-/datum/embedding/combat_knife
-	pain_mult = 4
-	embed_chance = 65
-	fall_chance = 10
-	ignore_throwspeed_threshold = TRUE
+	bayonet = TRUE
 
 /obj/item/knife/combat/survival
 	name = "survival knife"
 	icon_state = "survivalknife"
-	embed_type = /datum/embedding/combat_knife/weak
+	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10)
 	desc = "A hunting grade survival knife."
 	force = 15
 	throwforce = 15
+	bayonet = TRUE
 
 /obj/item/knife/combat/bone
 	name = "bone dagger"
@@ -145,13 +142,10 @@
 	lefthand_file = 'icons/mob/inhands/weapons/swords_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/weapons/swords_righthand.dmi'
 	desc = "A sharpened bone. The bare minimum in survival."
-	embed_type = /datum/embedding/combat_knife/weak
+	embedding = list("pain_mult" = 4, "embed_chance" = 35, "fall_chance" = 10)
 	force = 15
 	throwforce = 15
 	custom_materials = null
-
-/datum/embedding/combat_knife/weak
-	embed_chance = 35
 
 /obj/item/knife/combat/bone/Initialize(mapload)
 	flags_1 &= ~CONDUCT_1

@@ -196,7 +196,7 @@
 		current_heart?.beating = FALSE
 	bloodsuckeruser.update_sight()
 
-	if(bloodsuckeruser.stat == DEAD && !HAS_TRAIT(owner, TRAIT_NO_SPECIAL_REVIVAL))
+	if(bloodsuckeruser.stat == DEAD)
 		bloodsuckeruser.revive(revival_policy = POLICY_ANTAGONISTIC_REVIVAL)
 	for(var/datum/wound/iter_wound as anything in bloodsuckeruser.all_wounds)
 		iter_wound.remove_wound()

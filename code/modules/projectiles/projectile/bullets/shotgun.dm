@@ -19,13 +19,14 @@
 	name = "tungsten sabot-slug"
 	icon_state = "gauss"
 	damage = 25 //10 less than slugs.
-	speed = 2.2 //sub-caliber + lighter = speed.
+	speed = 0.25 //sub-caliber + lighter = speed. (Smaller number = faster)
 	armour_penetration = 25
 	wound_bonus = -25
 	ricochets_max = 2 //Unlike slugs which tend to squish on impact, these are hard enough to bounce rarely.
 	ricochet_chance = 50
 	ricochet_auto_aim_range = 0
 	ricochet_incidence_leeway = 50
+	embedding = null
 	demolition_mod = 2 //High-velocity tungsten > steel doors
 	projectile_piercing = PASSMOB
 
@@ -48,6 +49,7 @@
 	stamina = 55
 	wound_bonus = 20
 	sharpness = NONE
+	embedding = null
 
 /obj/projectile/bullet/incendiary/shotgun
 	name = "incendiary slug"
@@ -59,9 +61,13 @@
 	damage = 35
 	leaves_fire_trail = FALSE
 
+
+
 /obj/projectile/bullet/pellet
 	icon_state = "pellet"
-	damage_falloff_tile = -0.45
+	tile_dropoff = 0.45
+	tile_dropoff_s = 0.25
+	sharpness = SHARP_POINTY
 
 /obj/projectile/bullet/pellet/shotgun_buckshot ///6 pellets
 	name = "buckshot pellet"
@@ -75,10 +81,9 @@
 	damage = 2 //monkestation edit 3 to 2
 	stamina = 10
 	sharpness = NONE
-	embed_type = null
-	speed = 0.8
-	stamina_falloff_tile = 0
-	damage_falloff_tile = 0
+	embedding = null
+	tile_dropoff_s = 0 //monkestation edit
+	speed = 1.2
 	ricochets_max = 4
 	ricochet_chance = 120
 	ricochet_decay_chance = 0.9
@@ -89,7 +94,7 @@
 	/// Subtracted from the ricochet chance for each tile traveled
 	var/tile_dropoff_ricochet = 4
 
-/obj/projectile/bullet/pellet/shotgun_rubbershot/reduce_range()
+/obj/projectile/bullet/pellet/shotgun_rubbershot/Range()
 	if(ricochet_chance > 0)
 		ricochet_chance -= tile_dropoff_ricochet
 	. = ..()
@@ -131,10 +136,10 @@
 
 
 /obj/projectile/bullet/pellet/shotgun_improvised ///8 pellets
+	tile_dropoff = 0.35 //Come on it does 6 damage don't be like that.
 	damage = 6
 	wound_bonus = 0
 	bare_wound_bonus = 5
-	damage_falloff_tile = -0.35
 
 /obj/projectile/bullet/pellet/shotgun_improvised/Initialize(mapload)
 	. = ..()
@@ -143,6 +148,7 @@
 /obj/projectile/bullet/pellet/shotgun_improvised/on_range()
 	do_sparks(1, TRUE, src)
 	..()
+
 
 
 /obj/projectile/bullet/incendiary/shotgun/dragonsbreath ///4 pellets
@@ -158,6 +164,7 @@
 	range = 7
 	icon_state = "spark"
 	color = "#FFFF00"
+	embedding = null
 
 /obj/projectile/bullet/shotgun_frag12
 	name ="frag12 slug"
@@ -180,7 +187,7 @@
 /obj/projectile/bullet/pellet/trickshot
 	name = "trickshot pellet"
 	damage = 6
-	damage_falloff_tile = 0
+	tile_dropoff = 0
 	ricochets_max = 5
 	ricochet_chance = 100
 	ricochet_decay_chance = 0
@@ -191,7 +198,8 @@
 	name = "incapacitating pellet"
 	damage = 1
 	stamina = 6
-	stamina_falloff_tile = -3
+	tile_dropoff_s = 3 //monkestation edit spitting distance
+	embedding = null
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/beehive ///4 pellets
 	name = "hornet flechette"
@@ -224,6 +232,7 @@
 	eyeblur = 1 SECONDS
 	sharpness = NONE
 	range = 7
+	embedding = list(embed_chance=75, pain_chance=50, fall_chance=15, jostle_chance=80, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.9, pain_mult=2, rip_time=10)
 
 /obj/projectile/bullet/pellet/shotgun_buckshot/antitide/on_range()
 	do_sparks(1, TRUE, src)
@@ -242,7 +251,6 @@
 	hitsound = SFX_CLOWN_STEP
 	range = 4
 	icon_state = "guardian"
-	embed_data = null
 
 /obj/projectile/bullet/honkshot/Initialize(mapload)
 	. = ..()
@@ -329,6 +337,7 @@
 
 /obj/projectile/bullet/pellet/beeshot/proc/afterspawn(list/mob/spawned)
 	return
+
 
 // Mech Scattershot
 

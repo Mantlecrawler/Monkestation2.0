@@ -113,9 +113,13 @@
 	SIGNAL_HANDLER
 
 	if(active)
+		if(embedding)
+			updateEmbedding()
 		heat = active_heat
 		START_PROCESSING(SSobj, src)
 	else
+		if(embedding)
+			disableEmbedding()
 		heat = initial(heat)
 		STOP_PROCESSING(SSobj, src)
 
@@ -169,10 +173,6 @@
 	return (BRUTELOSS|FIRELOSS)
 
 /// Energy swords.
-/datum/embedding/esword
-	embed_chance = 75
-	impact_pain_mult = 10
-
 /obj/item/melee/energy/sword
 	name = "energy sword"
 	desc = "May the force be within you."
@@ -190,7 +190,7 @@
 	armour_ignorance = 5
 	block_chance = 50
 	block_sound = 'sound/weapons/block_blade.ogg'
-	embed_type = /datum/embedding/esword
+	embedding = list("embed_chance" = 75, "impact_pain_mult" = 10)
 
 /obj/item/melee/energy/sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = MELEE_ATTACK)
 	if(!HAS_TRAIT(src, TRAIT_TRANSFORM_ACTIVE))

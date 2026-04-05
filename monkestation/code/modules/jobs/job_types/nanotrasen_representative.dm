@@ -24,7 +24,6 @@
 	paycheck = PAYCHECK_NANOTRASEN
 	paycheck_department = ACCOUNT_CC
 
-	mind_traits = list(TRAIT_CAN_HYPNO)
 	liver_traits = list(TRAIT_PRETENDER_ROYAL_METABOLISM)
 
 	display_order = JOB_DISPLAY_ORDER_NANOTRASEN_REPRESENTATIVE
@@ -102,7 +101,6 @@
 		/obj/item/clipboard = 1,
 	)
 	belt = /obj/item/gun/energy/laser/plasmacore
-	l_pocket = /obj/item/assembly/flash/memorizer/memories
 	r_pocket = /obj/item/modular_computer/pda/heads/ntrep
 	l_hand = /obj/item/storage/briefcase/secure/cash
 	glasses = /obj/item/clothing/glasses/sunglasses

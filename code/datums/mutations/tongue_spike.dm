@@ -62,7 +62,12 @@
 	force = 2
 	throwforce = 15 //15 + 2 (WEIGHT_CLASS_SMALL) * 4 (EMBEDDED_IMPACT_PAIN_MULTIPLIER) = i didnt do the math
 	throw_speed = 4
-	embed_type = /datum/embedding/tongue_spike
+	embedding = list(
+		"embedded_pain_multiplier" = 4,
+		"embed_chance" = 100,
+		"embedded_fall_chance" = 0,
+		"embedded_ignore_throwspeed_threshold" = TRUE,
+	)
 	w_class = WEIGHT_CLASS_SMALL
 	sharpness = SHARP_POINTY
 	custom_materials = list(/datum/material/biomass = SMALL_MATERIAL_AMOUNT * 5)
@@ -74,31 +79,22 @@
 /obj/item/hardened_spike/Initialize(mapload, mob/living/carbon/source)
 	. = ..()
 	src.fired_by_ref = WEAKREF(source)
-	addtimer(CALLBACK(src, PROC_REF(check_morph)), 5 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(check_embedded)), 5 SECONDS)
 
-/obj/item/hardened_spike/proc/check_morph()
-	// Failed to embed, morph back
-	if (!embed_data?.owner)
-		morph_back()
+/obj/item/hardened_spike/proc/check_embedded()
+	if(missed)
+		unembedded()
 
-/obj/item/hardened_spike/proc/morph_back()
+/obj/item/hardened_spike/embedded(atom/target)
+	if(isbodypart(target))
+		missed = FALSE
+
+/obj/item/hardened_spike/unembedded()
 	visible_message(span_warning("[src] cracks and twists, changing shape!"))
 	for(var/obj/tongue as anything in contents)
 		tongue.forceMove(get_turf(src))
+
 	qdel(src)
-
-/datum/embedding/tongue_spike
-	impact_pain_mult = 0
-	pain_mult = 15
-	embed_chance = 100
-	fall_chance = 0
-	ignore_throwspeed_threshold = TRUE
-
-/datum/embedding/tongue_spike/stop_embedding()
-	. = ..()
-	var/obj/item/hardened_spike/tongue_spike = parent
-	if (!QDELETED(tongue_spike)) // This can cause a qdel loop
-		tongue_spike.morph_back()
 
 /datum/mutation/tongue_spike/chem
 	name = "Chem Spike"
@@ -125,36 +121,41 @@
 	name = "chem spike"
 	desc = "Hardened biomass, shaped into... something."
 	icon_state = "tonguespikechem"
-	throwforce = 2
-	embed_type = /datum/embedding/tongue_spike/chem
+	throwforce = 2 //2 + 2 (WEIGHT_CLASS_SMALL) * 0 (EMBEDDED_IMPACT_PAIN_MULTIPLIER) = i didnt do the math again but very low or smthin
+	embedding = list(
+		"embedded_pain_multiplier" = 0,
+		"embed_chance" = 100,
+		"embedded_fall_chance" = 0,
+		"embedded_pain_chance" = 0,
+		"embedded_ignore_throwspeed_threshold" = TRUE,  //never hurts once it's in you
+	)
+	/// Whether the tongue's already embedded in a target once before
+	var/embedded_once_alread = FALSE
 
-/datum/embedding/tongue_spike/chem
-	pain_mult = 0
-	pain_chance = 0
+/obj/item/hardened_spike/chem/embedded(mob/living/carbon/human/embedded_mob)
+	if(embedded_once_alread)
+		return
+	embedded_once_alread = TRUE
 
-/datum/embedding/tongue_spike/chem/on_successful_embed(mob/living/carbon/victim, obj/item/bodypart/target_limb)
-	var/obj/item/hardened_spike/chem/tongue_spike = parent
-	var/mob/living/carbon/fired_by = tongue_spike.fired_by_ref?.resolve()
-	if(!istype(fired_by))
+	var/mob/living/carbon/fired_by = fired_by_ref?.resolve()
+	if(!fired_by)
 		return
 
-	var/datum/action/send_chems/chem_action = new(tongue_spike)
-	chem_action.transfered_ref = WEAKREF(victim)
+	var/datum/action/send_chems/chem_action = new(src)
+	chem_action.transfered_ref = WEAKREF(embedded_mob)
 	chem_action.Grant(fired_by)
 
 	to_chat(fired_by, span_notice("Link established! Use the \"Transfer Chemicals\" ability \
 		to send your chemicals to the linked target!"))
 
-/datum/embedding/tongue_spike/chem/stop_embedding()
-	. = ..()
-	var/obj/item/hardened_spike/chem/tongue_spike = parent
-	var/mob/living/carbon/fired_by = tongue_spike.fired_by_ref?.resolve()
-	if(!istype(fired_by))
-		return
+/obj/item/hardened_spike/chem/unembedded()
+	var/mob/living/carbon/fired_by = fired_by_ref?.resolve()
+	if(fired_by)
+		to_chat(fired_by, span_warning("Link lost!"))
+		var/datum/action/send_chems/chem_action = locate() in fired_by.actions
+		QDEL_NULL(chem_action)
 
-	to_chat(fired_by, span_warning("Link lost!"))
-	var/datum/action/send_chems/chem_action = locate() in fired_by.actions
-	qdel(chem_action)
+	return ..()
 
 /datum/action/send_chems
 	name = "Transfer Chemicals"
@@ -187,11 +188,9 @@
 	transferer.reagents.trans_to(transfered, transferer.reagents.total_volume, 1, 1, 0, transfered_by = transferer)
 
 	var/obj/item/hardened_spike/chem/chem_spike = target
+	var/obj/item/bodypart/spike_location = chem_spike.check_embedded()
 
-	// This is where it would deal damage, if it transfers chems it removes itself so no damage
-	var/mob/living/carbon/spike_owner = chem_spike.get_embed()?.owner
-	// Message first because it'll shift back into a tongue right after moving
-	if (istype(spike_owner))
-		spike_owner.visible_message(span_notice("[chem_spike] falls out of [spike_owner]!"))
-	chem_spike.forceMove(get_turf(chem_spike))
+	//this is where it would deal damage, if it transfers chems it removes itself so no damage
+	chem_spike.forceMove(get_turf(spike_location))
+	chem_spike.visible_message(span_notice("[chem_spike] falls out of [spike_location]!"))
 	return TRUE

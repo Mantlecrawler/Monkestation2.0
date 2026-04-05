@@ -997,8 +997,7 @@ Striking a noncultist, however, will tear their flesh."}
 					owner.Paralyze(25)
 					qdel(src)
 					return FALSE
-			var/obj/projectile/projectile = hitby
-			if(projectile.reflectable)
+			if(P.reflectable & REFLECT_NORMAL)
 				return FALSE //To avoid reflection chance double-dipping with block chance
 		. = ..()
 		if(.)

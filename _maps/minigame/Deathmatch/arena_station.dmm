@@ -917,7 +917,7 @@
 /area/deathmatch/fullbright)
 "LY" = (
 /obj/structure/closet/secure_closet,
-/obj/item/gun/energy/xray,
+/obj/item/gun/energy/beam_rifle,
 /turf/open/indestructible/vault,
 /area/deathmatch/fullbright)
 "Mc" = (

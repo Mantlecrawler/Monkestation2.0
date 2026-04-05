@@ -9,10 +9,12 @@
 	has_desc = TRUE
 	player_startable = FALSE
 
+
 /datum/vote/storyteller/New()
 	. = ..()
 	default_choices = list()
 	default_choices = SSgamemode.storyteller_vote_choices()
+
 
 /datum/vote/storyteller/return_desc(vote_name)
 	return SSgamemode.storyteller_desc(vote_name)

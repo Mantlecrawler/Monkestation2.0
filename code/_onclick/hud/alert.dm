@@ -63,7 +63,8 @@
 		thealert.icon_state = "template" // We'll set the icon to the client's ui pref in reorganize_alerts()
 		thealert.master_ref = master_ref
 	else
-		thealert.set_severity(severity)
+		thealert.icon_state = "[initial(thealert.icon_state)][severity]"
+		thealert.severity = severity
 
 	alerts[category] = thealert
 	if(HAS_CONNECTED_PLAYER(src) && hud_used)
@@ -306,7 +307,8 @@
 		return
 
 	var/mob/living/carbon/carbon_owner = owner
-	return carbon_owner.check_self_for_injuries()
+
+	return carbon_owner.help_shake_act(carbon_owner)
 
 /atom/movable/screen/alert/negative
 	name = "Negative Gravity"

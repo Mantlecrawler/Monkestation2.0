@@ -68,6 +68,7 @@
 		"intellicard",
 		"mecha_tracking_ai_control",
 		"aifixer",
+		"aiupload",
 		"reset_module",
 		"asimov_module",
 		"default_module",

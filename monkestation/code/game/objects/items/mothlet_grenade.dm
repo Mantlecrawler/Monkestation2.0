@@ -23,12 +23,8 @@
 	ricochet_incidence_leeway = 0 //They are living moths, buzzing around
 	hit_prone_targets = TRUE //You cant duck under a creature intent on pantsing you infront of everyone
 	sharpness = SHARP_POINTY
-	embed_type = /datum/embedding/mothlet
+	embedding = list(embed_chance=0, ignore_throwspeed_threshold=TRUE, fall_chance=1)
 
-/datum/embedding/mothlet
-	embed_chance = 0
-	ignore_throwspeed_threshold = TRUE
-	fall_chance = 1
 
 /obj/projectile/bullet/shrapnel/mothlet/on_hit(atom/target, blocked = 0, pierce_hit)
 	. = ..()

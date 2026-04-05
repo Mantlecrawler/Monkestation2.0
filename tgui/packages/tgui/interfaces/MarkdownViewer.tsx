@@ -1,5 +1,5 @@
 import { marked } from 'marked';
-
+import { useEffect } from 'react';
 import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { sanitizeText } from '../sanitize';
@@ -13,7 +13,7 @@ type MarkdownViewerData = {
 export const MarkdownViewer = (_: any) => {
   const { data } = useBackend<MarkdownViewerData>();
   return (
-    <Window theme="paper" title={data.title} width={420} height={500}>
+    <Window theme="paper" title={data.title}>
       <Window.Content scrollable backgroundColor={'#FFFFFF'}>
         <MarkdownRenderer content={data.content} />
       </Window.Content>
@@ -29,11 +29,18 @@ type MarkdownRendererProps = {
 export const MarkdownRenderer = (props: MarkdownRendererProps) => {
   let { content, sanitize } = props;
 
-  content = marked(content, { async: false });
-  if (sanitize) {
-    content = sanitizeText(content, /* advHtml = */ false);
-  }
+  useEffect(() => {
+    const getAndSetContent = async () => {
+      content = await marked(content);
+      if (sanitize) {
+        content = sanitizeText(content, /* advHtml = */ false);
+      }
+    };
 
+    getAndSetContent();
+  });
+
+  // eslint-disable-next-line react/no-danger
   return <div dangerouslySetInnerHTML={{ __html: content }} />;
 };
 

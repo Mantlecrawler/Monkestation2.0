@@ -110,7 +110,7 @@
 	damage = 100
 	range = 7
 	pressure_decrease = 0.10 // Pressured enviorments are a no go for the railgun
-	speed = 10 // NYOOM
+	speed = 0.1 // NYOOM
 	projectile_piercing = PASSMOB
 
 

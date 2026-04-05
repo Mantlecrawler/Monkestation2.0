@@ -40,7 +40,6 @@ type ProductRecord = {
   max_amount: number;
   ref: string;
   category: string;
-  discountable: boolean;
   icon?: string;
   icon_state?: string;
 };
@@ -235,8 +234,7 @@ const VendingRow = (props) => {
   const { custom, product, productStock } = props;
   const { access, department, jobDiscount, onstation, user } = data;
   const free = !onstation || product.price === 0;
-  const discount =
-    !product.premium && department === user?.department && product.discountable;
+  const discount = !product.premium && department === user?.department;
   const remaining = custom ? product.amount : productStock.amount;
   const redPrice = Math.round(product.price * jobDiscount);
   const disabled =

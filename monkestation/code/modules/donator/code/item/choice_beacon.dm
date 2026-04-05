@@ -155,8 +155,3 @@
 	name = "cyber mastiff"
 	default_name = "cyber mastiff"
 	donator_pet = /mob/living/basic/pet/cyber_mastiff
-
-/obj/item/choice_beacon/pet/donator/yato_neco_arc
-	name = "Neco-Arc"
-	default_name = "Neco-Arc"
-	donator_pet = /mob/living/basic/pet/yato_neco_arc

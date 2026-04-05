@@ -41,7 +41,6 @@
 
 /datum/design/microfusion/phase_emitter/advanced
 	name = "Advanced Microfusion Phase Emitter"
-	desc = "The core of a microfusion projection weapon, provides better integrity and heat management over the previous generations."
 	id = "advanced_microfusion_phase_emitter"
 	materials = list(
 		/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT,
@@ -53,7 +52,6 @@
 
 /datum/design/microfusion/phase_emitter/bluespace
 	name = "Bluespace Microfusion Phase Emitter"
-	desc = "The core of a microfusion projection weapon, twice as durable compared to the first generation in most fields."
 	id = "bluespace_microfusion_phase_emitter"
 	materials = list(
 		/datum/material/iron = HALF_SHEET_MATERIAL_AMOUNT,

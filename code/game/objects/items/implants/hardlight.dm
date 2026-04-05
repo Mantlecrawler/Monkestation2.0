@@ -274,30 +274,20 @@
 	wound_bonus = 5
 	bare_wound_bonus = 20 //Why was this fifty before wtf
 	wound_falloff_tile = -1
-	speed = 1.7
+	speed = 0.4 //lower = faster
 	shrapnel_type = /obj/item/shrapnel/bullet/spear
 	light_outer_range = 1
 	light_power = 1
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	hitsound_wall = 'sound/weapons/parry.ogg'
-	embed_type = /datum/embedding/hardlight_spear
-
-/datum/embedding/hardlight_spear
-	embed_chance = 100
-	fall_chance = 2
-	jostle_chance = 8
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.5
-	pain_mult = 5
-	jostle_pain_mult = 6
-	rip_time = 10
+	embedding = list(embed_chance=100, fall_chance=2, jostle_chance=8, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.5, pain_mult=5, jostle_pain_mult=6, rip_time=10)
 
 /obj/item/shrapnel/bullet/spear
 	name = "hardlight spear"
 	icon = 'monkestation/icons/obj/items_and_weapons.dmi'
 	icon_state = "lightspear"
 
-/datum/embedding/hardlight_spear/stop_embedding()
+/obj/item/shrapnel/bullet/spear/unembedded()
 	. = ..()
 	QDEL_NULL(src) //Deletes itself when unembedded
 	return TRUE

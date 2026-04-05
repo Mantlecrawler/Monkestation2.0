@@ -9,18 +9,8 @@
 	ricochet_auto_aim_range = 3
 	wound_bonus = -20
 	bare_wound_bonus = 10
-	embed_type = /datum/embedding/n762
+	embedding = list(embed_chance=25, fall_chance=2, jostle_chance=2, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=3, jostle_pain_mult=5, rip_time=1 SECONDS)
 	embed_falloff_tile = -4
-
-/datum/embedding/n762
-	embed_chance = 25
-	fall_chance = 2
-	jostle_chance = 2
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 3
-	jostle_pain_mult = 5
-	rip_time = 1 SECONDS
 
 // .50AE (Desert Eagle)
 
@@ -39,18 +29,8 @@
 	ricochet_auto_aim_range = 3
 	wound_bonus = -20
 	bare_wound_bonus = 10
-	embed_type = /datum/embedding/bullet_c38
+	embedding = list(embed_chance=25, fall_chance=2, jostle_chance=2, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=3, jostle_pain_mult=5, rip_time=1 SECONDS)
 	embed_falloff_tile = -4
-
-/datum/embedding/bullet_c38
-	embed_chance = 25
-	fall_chance = 2
-	jostle_chance = 2
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 3
-	jostle_pain_mult = 5
-	rip_time = 1 SECONDS
 
 /obj/projectile/bullet/c38/match
 	name = ".38 Match bullet"
@@ -73,7 +53,7 @@
 	ricochet_decay_damage = 1 //0.8 to 1 monkestation edit let them have fun
 	shrapnel_type = null
 	sharpness = NONE
-	embed_type = null
+	embedding = null
 
 // premium .38 ammo from cargo, weak against armor, lower base damage, but excellent at embedding and causing slice wounds at close range
 /obj/projectile/bullet/c38/dumdum
@@ -84,19 +64,9 @@
 	sharpness = SHARP_EDGED
 	wound_bonus = 20
 	bare_wound_bonus = 20
-	embed_type = /datum/embedding/bullet_c38_dumdum
+	embedding = list(embed_chance=75, fall_chance=3, jostle_chance=4, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=1 SECONDS)
 	wound_falloff_tile = -5
 	embed_falloff_tile = -15
-
-/datum/embedding/bullet_c38_dumdum
-	embed_chance = 75
-	fall_chance = 3
-	jostle_chance = 4
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 5
-	jostle_pain_mult = 6
-	rip_time = 1 SECONDS
 
 /obj/projectile/bullet/c38/trac
 	name = ".38 TRAC bullet"
@@ -168,7 +138,7 @@
 	stamina = 17.5
 	weak_against_armour = TRUE
 	sharpness = NONE
-	embed_type = null
+	embedding = null
 
 /obj/projectile/bullet/g45l
 	name = ".45 Long bullet"
@@ -176,17 +146,8 @@
 	weak_against_armour = TRUE // High fire rate
 	wound_bonus = -10
 	sharpness = SHARP_EDGED
-	embed_type = /datum/embedding/g45l
+	embedding = list(embed_chance=25, fall_chance=2, jostle_chance=2, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=3, jostle_pain_mult=5, rip_time=1 SECONDS)
 
-/datum/embedding/g45l
-	embed_chance = 25
-	fall_chance = 2
-	jostle_chance = 2
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 3
-	jostle_pain_mult = 5
-	rip_time = 1 SECONDS
 
 //.45-70, mining revolver
 

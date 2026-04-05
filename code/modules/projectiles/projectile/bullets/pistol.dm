@@ -3,23 +3,13 @@
 /obj/projectile/bullet/c9mm
 	name = "9mm bullet"
 	damage = 30
-	embed_type = /datum/embedding/bullet_c9mm
-
-/datum/embedding/bullet_c9mm
-	embed_chance = 15
-	fall_chance = 3
-	jostle_chance = 4
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 5
-	jostle_pain_mult = 6
-	rip_time = 10
+	embedding = list(embed_chance=15, fall_chance=3, jostle_chance=4, ignore_throwspeed_threshold=TRUE, pain_stam_pct=0.4, pain_mult=5, jostle_pain_mult=6, rip_time=10)
 
 /obj/projectile/bullet/c9mm/ap
 	name = "9mm armor-piercing bullet"
 	damage = 27
 	armour_penetration = 75
-	embed_type = null
+	embedding = null
 	shrapnel_type = null
 
 /obj/projectile/bullet/c9mm/hp
@@ -82,7 +72,7 @@
 	ricochet_decay_damage = 0.8
 	shrapnel_type = null
 	sharpness = NONE
-	embed_type = null
+	embedding = null
 
 /obj/projectile/bullet/c35sol/ripper // .35 Sol ripper, similar to the detective revolver's dumdum rounds, causes slash wounds and is weak to armor
 	name = ".35 Sol ripper bullet"
@@ -91,18 +81,18 @@
 	sharpness = SHARP_EDGED
 	wound_bonus = 20
 	bare_wound_bonus = 20
-	embed_type = /datum/embedding/c35sol
-	embed_falloff_tile = -15
+	embedding = list(
+		embed_chance = 75,
+		fall_chance = 3,
+		jostle_chance = 4,
+		ignore_throwspeed_threshold = TRUE,
+		pain_stam_pct = 0.4,
+		pain_mult = 5,
+		jostle_pain_mult = 6,
+		rip_time = 1 SECONDS,
+	)
 
-/datum/embedding/c35sol
-	embed_chance = 75
-	fall_chance = 3
-	jostle_chance = 4
-	ignore_throwspeed_threshold = TRUE
-	pain_stam_pct = 0.4
-	pain_mult = 5
-	jostle_pain_mult = 6
-	rip_time = 1 SECONDS
+	embed_falloff_tile = -15
 
 /obj/projectile/bullet/c35sol/pierce // What it says on the tin, AP rounds
 	name = ".35 Sol Short armor piercing bullet"
@@ -126,7 +116,7 @@
 	weak_against_armour = TRUE
 	shrapnel_type = null
 	sharpness = NONE
-	embed_type = null
+	embedding = null
 
 /obj/projectile/bullet/c585trappiste/hollowpoint
 	name = ".585 Trappiste hollowhead bullet"
@@ -150,4 +140,4 @@
 	damage = 4
 	stamina = 24
 	sharpness = NONE
-	embed_type = null
+	embedding = null

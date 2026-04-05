@@ -39,14 +39,9 @@
 	attack_verb_continuous = list("stubs", "pokes")
 	attack_verb_simple = list("stub", "poke")
 	sharpness = SHARP_EDGED
-	embed_type = /datum/embedding/janicart_key
+	embedding = list("pain_mult" = 1, "embed_chance" = 30, "fall_chance" = 70)
 	wound_bonus = -1
 	bare_wound_bonus = 2
-
-/datum/embedding/janicart_key
-	pain_mult = 1
-	embed_chance = 30
-	fall_chance = 70
 
 /obj/item/key/janitor/suicide_act(mob/living/carbon/user)
 	switch(user.mind?.get_skill_level(/datum/skill/cleaning))

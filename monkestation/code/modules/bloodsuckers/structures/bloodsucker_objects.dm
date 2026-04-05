@@ -111,16 +111,13 @@
 	attack_verb_continuous = list("staked", "stabbed", "tore into")
 	attack_verb_simple = list("staked", "stabbed", "tore into")
 	sharpness = SHARP_EDGED
-	embed_type = /datum/embedding/stake
+	embedding = list("embed_chance" = 20)
 	force = 6
 	throwforce = 10
 	max_integrity = 30
 
 	///Time it takes to embed the stake into someone's chest.
 	var/staketime = 12 SECONDS
-
-/datum/embedding/stake
-	embed_chance = 20
 
 /obj/item/stake/attack(mob/living/target, mob/living/user, params)
 	. = ..()
@@ -148,7 +145,7 @@
 		span_danger("You drive the [src] into [target]'s chest!"),
 	)
 	playsound(get_turf(target), 'sound/effects/splat.ogg', 40, 1)
-	if(force_embed(target, target.get_bodypart(BODY_ZONE_CHEST))) //and if it embeds successfully in their chest, cause a lot of pain
+	if(tryEmbed(target.get_bodypart(BODY_ZONE_CHEST), TRUE, TRUE)) //and if it embeds successfully in their chest, cause a lot of pain
 		target.apply_damage(max(10, force * 1.2), BRUTE, BODY_ZONE_CHEST, wound_bonus = 0, sharpness = TRUE)
 	if(QDELETED(src)) // in case trying to embed it caused its deletion (say, if it's DROPDEL)
 		return
@@ -180,11 +177,8 @@
 	force = 8
 	throwforce = 12
 	armour_penetration = 10
-	embed_type = /datum/embedding/stake/hardened
+	embedding = list("embed_chance" = 35)
 	staketime = 80
-
-/datum/embedding/stake/hardened
-	embed_chance = 35
 
 /obj/item/stake/hardened/silver
 	name = "silver stake"
@@ -194,11 +188,8 @@
 	siemens_coefficient = 1 //flags = CONDUCT // var/siemens_coefficient = 1 // for electrical admittance/conductance (electrocution checks and shit)
 	force = 9
 	armour_penetration = 25
-	embed_type = /datum/embedding/stake/silver
+	embedding = list("embed_chance" = 65)
 	staketime = 60
-
-/datum/embedding/stake/silver
-	embed_chance = 65
 
 /obj/item/stake/hardened/silver/Initialize(mapload)
 	. = ..()
@@ -252,9 +243,9 @@ GLOBAL_LIST_EMPTY_TYPED(kindred_archives, /obj/item/book/kindred)
 	GLOB.kindred_archives -= src
 	return ..()
 
-/obj/item/book/kindred/carving_act(mob/living/user, obj/item/tool)
-	to_chat(user, span_notice("You feel the gentle whispers of a Librarian telling you not to cut [starting_title]."))
-	return ITEM_INTERACT_BLOCKING
+/obj/item/book/kindred/try_carve(obj/item/carving_item, mob/living/user, params)
+	to_chat(user, span_notice("You feel the gentle whispers of a Curator telling you not to cut [starting_title]."))
+	return FALSE
 
 ///Attacking someone with the book.
 /obj/item/book/kindred/interact_with_atom(mob/interacting_with, mob/living/user, list/modifiers)

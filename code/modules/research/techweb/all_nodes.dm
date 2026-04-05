@@ -15,7 +15,6 @@
 		"basic_micro_laser",
 		"basic_scanning",
 		"blast",
-		"ignition",
 		"big_manipulator",
 		"assembler",
 		"manipulator_filter",
@@ -56,11 +55,8 @@
 		"electropack",
 		"experi_scanner",
 		"extinguisher",
-		"pocketfireextinguisher",
 		"fax",
 		"fishing_rod",
-		"fishing_line",
-		"fishing_hook",
 		"fishing_portal_generator",
 		"flashlight",
 		"fluid_ducts",
@@ -262,7 +258,4 @@
 		"synth_heart",
 		"cybernetic_spleen",
 		"vitals_monitor",
-		"vial",
-		"large_vial",
-		"medical_crutch"
 	)

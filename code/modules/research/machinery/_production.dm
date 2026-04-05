@@ -24,9 +24,6 @@
 	/// Whether or not the fabricator links to the ore silo on init. Special derelict or maintanance variants should set this to FALSE.
 	var/link_on_init = TRUE
 
-	/// Multiplier for production speed.
-	var/production_speed_multiplier = 0.1
-
 /obj/machinery/rnd/production/Initialize(mapload)
 	materials = AddComponent(
 		/datum/component/remote_materials, \
@@ -348,7 +345,6 @@
 				charge_per_item += design.materials[material]
 			charge_per_item = ROUND_UP((charge_per_item / (MAX_STACK_SIZE * SHEET_MATERIAL_AMOUNT)) * coefficient * active_power_usage)
 			var/build_time_per_item = (design.construction_time * design.lathe_time_factor * efficiency_coeff) ** 0.8
-			build_time_per_item *= production_speed_multiplier
 
 			//start production
 			busy = TRUE

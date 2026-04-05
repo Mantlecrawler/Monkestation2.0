@@ -32,7 +32,7 @@
 	drawn = FALSE
 	if(chambered)
 		chambered.forceMove(drop_location())
-		magazine.get_round()
+		magazine.get_round(keep = FALSE)
 		chambered = null
 	to_chat(user, span_warning("Without drawing the bow, the arrow uselessly falls to the ground."))
 	update_appearance()
@@ -41,7 +41,7 @@
 	if(chambered || !magazine)
 		return
 	if(magazine.ammo_count())
-		chambered = magazine.get_round()
+		chambered = magazine.get_round(TRUE)
 		chambered.forceMove(src)
 
 /obj/item/gun/ballistic/bow/attack_self(mob/user)
@@ -75,7 +75,7 @@
 
 /obj/item/ammo_box/magazine/internal/bow
 	name = "bowstring"
-	ammo_type = /obj/item/ammo_casing/arrow
+	ammo_type = /obj/item/ammo_casing/caseless/arrow
 	max_ammo = 1
 	start_empty = TRUE
 	caliber = CALIBER_ARROW

@@ -227,7 +227,7 @@
 	ricochet_auto_aim_angle = 10
 	ricochet_auto_aim_range = 3
 	wound_bonus = -10
-	embed_type = null
+	embedding = null
 
 /datum/action/cooldown/spell/pointed/psychic_projection
 	name = "Psychic Projection"

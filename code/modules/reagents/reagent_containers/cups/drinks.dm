@@ -30,11 +30,11 @@
 	qdel(src)
 	target.Bumped(B)
 
-/obj/item/reagent_containers/cup/glass/bullet_act(obj/projectile/proj)
+/obj/item/reagent_containers/cup/glass/bullet_act(obj/projectile/P)
 	. = ..()
 	if(QDELETED(src))
 		return
-	if(proj.damage > 0 && proj.damage_type == BRUTE)
+	if(P.damage > 0 && P.damage_type == BRUTE)
 		var/atom/T = get_turf(src)
 		smash(T)
 

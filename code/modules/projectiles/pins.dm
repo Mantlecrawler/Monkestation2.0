@@ -346,11 +346,6 @@
 		return FALSE
 	return TRUE
 
-/obj/item/firing_pin/explorer/unremovable
-	name = "unremovable outback firing pin"
-	desc = "A firing pin used by the austrailian defense force, retrofit to prevent weapon discharge on the station."
-	pin_removable = FALSE
-
 // Laser tag pins
 /obj/item/firing_pin/tag
 	name = "laser tag firing pin"

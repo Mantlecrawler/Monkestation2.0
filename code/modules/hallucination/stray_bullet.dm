@@ -16,7 +16,7 @@
 
 	var/obj/projectile/hallucination/fake_projectile = new fake_type(start, src)
 
-	fake_projectile.aim_projectile(hallucinator, start)
+	fake_projectile.preparePixelProjectile(hallucinator, start)
 	fake_projectile.fire()
 
 	QDEL_IN(src, 10 SECONDS) // Should clean up the projectile if it somehow gets stuck.
@@ -32,6 +32,7 @@
 	ricochets_max = 0
 	ricochet_chance = 0
 	damage = 0
+	projectile_type = /obj/projectile/hallucination
 	log_override = TRUE
 	/// Our parent hallucination that's created us
 	var/datum/hallucination/parent
@@ -212,7 +213,7 @@
 
 	ricochets_max = 50
 	ricochet_chance = 80
-	reflectable = TRUE
+	reflectable = REFLECT_NORMAL // No idea if this works
 
 /obj/projectile/hallucination/laser/apply_effect_to_hallucinator(mob/living/afflicted)
 	afflicted.stamina.adjust(-10)
@@ -258,7 +259,7 @@
 
 	ricochets_max = 50
 	ricochet_chance = 80
-	reflectable = TRUE
+	reflectable = REFLECT_NORMAL // No idea if this works
 
 /obj/projectile/hallucination/disabler/apply_effect_to_hallucinator(mob/living/afflicted)
 	afflicted.stamina.adjust(-15)

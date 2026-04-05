@@ -291,7 +291,6 @@
 		I finally began to understand. And then, blood rained from the heavens."
 	next_knowledge = list(/datum/heretic_knowledge/summon/stalker)
 	route = PATH_FLESH
-	required_path = PATH_FLESH
 	///What type of wound do we apply on hit
 	var/wound_type = /datum/wound/slash/flesh/severe
 

@@ -43,8 +43,6 @@
 	var/list/returned_products
 	///If set, this access is needed to see this vending product.
 	var/access_requirement
-	///Is the item discountable by job discounts
-	var/discountable
 
 /**
  * # vending machines
@@ -382,7 +380,6 @@
 		R.age_restricted = initial(temp.age_restricted)
 		R.colorable = !!(initial(temp.greyscale_config) && initial(temp.greyscale_colors) && (initial(temp.flags_1) & IS_PLAYER_COLORABLE_1))
 		R.category = product_to_category[typepath]
-		R.discountable = temp.discountable
 		if(access_needed)
 			R.access_requirement = access_needed
 		recordlist += R
@@ -748,14 +745,11 @@
 			var/mob/living/carbon/carbon_target = atom_target
 			for(var/i in 1 to num_shards)
 				var/obj/item/shard/shard = new /obj/item/shard(get_turf(carbon_target))
-				var/datum/embedding/embed = shard.get_embed()
-				embed.embed_chance = 100
-				embed.ignore_throwspeed_threshold = TRUE
-				embed.impact_pain_mult = 1
+				shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult = 1, pain_chance = 5)
+				shard.updateEmbedding()
 				carbon_target.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-				embed.embed_chance = initial(embed.embed_chance)
-				embed.ignore_throwspeed_threshold = initial(embed.ignore_throwspeed_threshold)
-				embed.impact_pain_mult = initial(embed.impact_pain_mult)
+				shard.embedding = list()
+				shard.updateEmbedding()
 			return TRUE
 		if (VENDOR_CRUSH_CRIT_PIN) // pin them beneath the machine until someone untilts it
 			if (!isliving(atom_target))
@@ -985,14 +979,11 @@
 			var/mob/living/carbon/carbon_target = atom_target
 			for(var/i in 1 to num_shards)
 				var/obj/item/shard/shard = new /obj/item/shard(get_turf(carbon_target))
-				var/datum/embedding/embed = shard.get_embed()
-				embed.embed_chance = 100
-				embed.ignore_throwspeed_threshold = TRUE
-				embed.impact_pain_mult = 1
+				shard.embedding = list(embed_chance = 100, ignore_throwspeed_threshold = TRUE, impact_pain_mult = 1, pain_chance = 5)
+				shard.updateEmbedding()
 				carbon_target.hitby(shard, skipcatch = TRUE, hitpush = FALSE)
-				embed.embed_chance = initial(embed.embed_chance)
-				embed.ignore_throwspeed_threshold = initial(embed.ignore_throwspeed_threshold)
-				embed.impact_pain_mult = initial(embed.impact_pain_mult)
+				shard.embedding = list()
+				shard.updateEmbedding()
 			return TRUE
 		if (VENDOR_CRUSH_CRIT_PIN) // pin them beneath the machine until someone untilts it
 			if (!isliving(atom_target))
@@ -1165,7 +1156,6 @@
 			price = premium ? (record.custom_premium_price || extra_price) : (record.custom_price || default_price),
 			max_amount = record.max_amount,
 			ref = REF(record),
-			discountable = record.discountable,
 		)
 
 		var/atom/printed = record.product_path
@@ -1343,7 +1333,7 @@
 			vend_ready = TRUE
 			return
 		var/datum/bank_account/account = C.registered_account
-		if(account.account_job && account.account_job.paycheck_department == payment_department && R.discountable)
+		if(account.account_job && account.account_job.paycheck_department == payment_department)
 			price_to_use = max(round(price_to_use * DEPARTMENT_DISCOUNT), 1) //No longer free, but signifigantly cheaper.
 		if(coin_records.Find(R) || hidden_records.Find(R))
 			price_to_use = R.custom_premium_price ? R.custom_premium_price : extra_price

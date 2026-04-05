@@ -115,7 +115,7 @@
 	light_on = FALSE
 	wibbles = FALSE
 
-/obj/effect/portal/jaunt_tunnel/teleport(atom/movable/M, force = FALSE)
+/obj/effect/portal/jaunt_tunnel/teleport(atom/movable/M)
 	. = ..()
 	if(.)
 		// KERPLUNK

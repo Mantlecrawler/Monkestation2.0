@@ -171,8 +171,7 @@
 	if(isnum(override_cooldown_time))
 		next_use_time = world.time + (override_cooldown_time * cooldown_multiplier)
 	else
-		next_use_time = world.time + cooldown_time
-	// Don't start a cooldown if we have a cooldown time of 0 seconds
+		next_use_time = world.time + (cooldown_time * cooldown_multiplier)
 	if(next_use_time == world.time)
 		return
 	build_all_button_icons(UPDATE_BUTTON_STATUS)

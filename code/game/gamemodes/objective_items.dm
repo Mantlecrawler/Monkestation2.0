@@ -227,7 +227,7 @@
 /obj/item/storage/belt/utility/chief/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/storage/belt/utility/chief)
 
-/datum/objective_item/steal/research_director_holotool
+/datum/objective_item/steal/traitor/research_director_holotool
 	name = "the research director's holotool."
 	targetitem = /obj/item/holotool
 	excludefromjob = list(JOB_RESEARCH_DIRECTOR)
@@ -256,7 +256,7 @@
 /obj/item/melee/baton/telescopic/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/melee/baton/telescopic)
 
-/datum/objective_item/steal/cargo_budget
+/datum/objective_item/steal/traitor/cargo_budget
 	name = "cargo's departmental budget"
 	targetitem = /obj/item/card/id/departmental_budget/car
 	excludefromjob = list(JOB_QUARTERMASTER, JOB_CARGO_TECHNICIAN)
@@ -281,7 +281,7 @@
 /obj/item/mod/control/pre_equipped/magnate/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/mod/control/pre_equipped/magnate)
 
-/datum/objective_item/steal/captain_spare
+/datum/objective_item/steal/traitor/captain_spare
 	name = "the captain's spare ID"
 	targetitem = /obj/item/card/id/advanced/gold/captains_spare
 	excludefromjob = list(
@@ -316,17 +316,15 @@
 /obj/item/gun/energy/laser/captain/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/gun/energy/laser/captain)
 
-// Steal Objective, not just for Lawbringer but all their guns
-/datum/objective_item/steal/hosgun
-	name = "the head of security's personal weapon"
-	targetitem = /obj/item/choice_beacon/hos
-	excludefromjob = list(JOB_HEAD_OF_SECURITY)
-	altitems = list(/obj/item/gun/ballistic/shotgun/automatic/combat/compact, /obj/item/gun/energy/e_gun/lawbringer, /obj/item/gun/energy/e_gun/hos)
-	item_owner = list(JOB_HEAD_OF_SECURITY)
-	exists_on_map = TRUE
+/* //monkestation removal
+/datum/objective_item/steal/hoslaser
+	name = "the head of security's personal laser gun"
+	targetitem = /obj/item/gun/energy/e_gun/hos
 
-/obj/item/choice_beacon/hos/add_stealing_item_objective()
-	return add_item_to_steal(src, /obj/item/choice_beacon/hos)
+
+/obj/item/gun/energy/e_gun/hos/add_stealing_item_objective()
+	return add_item_to_steal(src, /obj/item/gun/energy/e_gun/hos)
+*/
 
 /datum/objective_item/steal/handtele
 	name = "a hand teleporter"
@@ -380,7 +378,7 @@
 	return add_item_to_steal(src, /obj/item/clothing/accessory/medal/gold/captain)
 
 /datum/objective_item/steal/hypo
-	name = "the hypospray"
+	name = "the cmo's hypospray"
 	targetitem = /obj/item/reagent_containers/hypospray/cmo
 	excludefromjob = list(JOB_CHIEF_MEDICAL_OFFICER)
 	item_owner = list(JOB_CHIEF_MEDICAL_OFFICER)
@@ -389,8 +387,8 @@
 	steal_hint = "The Chief Medical Officer's personal medical injector. \
 		Usually found amongst their medical supplies on their person, in their belt, or otherwise in their locker."
 
-/obj/item/hypospray/cmo/add_stealing_item_objective()
-	return add_item_to_steal(src, /obj/item/hypospray/cmo)
+/obj/item/reagent_containers/hypospray/cmo/add_stealing_item_objective()
+	return add_item_to_steal(src, /obj/item/reagent_containers/hypospray/cmo)
 
 /datum/objective_item/steal/nukedisc
 	name = "the nuclear authentication disk"
@@ -407,7 +405,7 @@
 	return !N.fake
 
 /datum/objective_item/steal/reflector
-	name = "the armory's ablative trenchcoat"
+	name = "the ablative trenchcoat"
 	targetitem = /obj/item/clothing/suit/hooded/ablative
 	excludefromjob = list(JOB_HEAD_OF_SECURITY, JOB_WARDEN)
 	item_owner = list(JOB_HEAD_OF_SECURITY)
@@ -424,6 +422,9 @@
 	excludefromjob = list(JOB_RESEARCH_DIRECTOR)
 	item_owner = list(JOB_RESEARCH_DIRECTOR)
 	exists_on_map = TRUE
+	difficulty = 3
+	steal_hint = "A special suit of armor found in the possession of the Research Director. \
+		You may otherwise find it in their locker."
 
 /obj/item/clothing/suit/armor/reactive/teleport/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/clothing/suit/armor/reactive/teleport)
@@ -433,6 +434,11 @@
 	valid_containers = list(/obj/item/folder)
 	targetitem = /obj/item/documents
 	exists_on_map = TRUE
+	difficulty = 3
+	steal_hint = "A set of papers belonging to a megaconglomerate. \
+		Nanotrasen documents can easily be found in the station's vault. \
+		For other corporations, you may find them in strange and distant places. \
+		A photocopy may also suffice."
 
 /obj/item/documents/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/documents) //Any set of secret documents. Doesn't have to be NT's
