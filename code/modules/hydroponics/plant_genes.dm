@@ -570,7 +570,7 @@
 	if(iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.adjust_disgust(15)	//Two teleports is safe
-		C.apply_status_effect(/datum/status_effect/confusion, 3 SECONDS)
+		C.adjust_confusion(3 SECONDS)
 /*
  * When slipped on, makes the target teleport and either teleport the source again or delete it.
  *
