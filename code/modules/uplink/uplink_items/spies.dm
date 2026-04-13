@@ -51,8 +51,4 @@
 	item = /obj/item/gun/ballistic/automatic/pistol/clandestine
 	cost = SPY_UPPER_COST_THRESHOLD
 
-/datum/uplink_item/spy_unique/shotgun_ammo/breacher_slug
-	name = "Box of Breacher Slugs"
-	desc = "A box of breacher slugs for a shotgun. For making a good first impression."
-	item = /obj/item/storage/box/breacherslug
 
