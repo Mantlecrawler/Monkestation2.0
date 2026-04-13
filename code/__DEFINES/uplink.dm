@@ -9,13 +9,10 @@
 /// This item is purchasable to clown ops
 #define UPLINK_CLOWN_OPS (1 << 2)
 
-<<<<<<< HEAD
 /// Can be randomly given to spies for their bounties
 #define UPLINK_SPY (1 << 4)
-=======
 /// the uplink flag for contractors
 #define UPLINK_CONTRACTORS (1 << 6)
->>>>>>> master
 
 /// Progression gets turned into a user-friendly form. This is just an abstract equation that makes progression not too large.
 #define DISPLAY_PROGRESSION(time) round(time/60, 0.01)
