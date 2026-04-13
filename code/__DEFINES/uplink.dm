@@ -29,12 +29,11 @@
 /// Minimal cost for an item to be eligible for a discount
 #define TRAITOR_DISCOUNT_MIN_PRICE 4
 
-<<<<<<< HEAD
 /// Lower threshold for which an uplink items's TC cost is considered "low" for spy bounties picking rewards
 #define SPY_LOWER_COST_THRESHOLD 5
 /// Upper threshold for which an uplink items's TC cost is considered "high" for spy bounties picking rewards
 #define SPY_UPPER_COST_THRESHOLD 10
-=======
+
 #define STARTING_COMMON_CONTRACTS 3
 #define STARTING_UNCOMMON_CONTRACTS 2
 #define STARTING_RARE_CONTRACTS 1
@@ -52,4 +51,3 @@
 #undef STARTING_COMMON_CONTRACTS
 #undef STARTING_UNCOMMON_CONTRACTS
 #undef STARTING_RARE_CONTRACTS
->>>>>>> master
