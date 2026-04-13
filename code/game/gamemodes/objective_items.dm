@@ -380,13 +380,8 @@
 	return add_item_to_steal(src, /obj/item/clothing/accessory/medal/gold/captain)
 
 /datum/objective_item/steal/hypo
-<<<<<<< HEAD
-	name = "the cmo's hypospray"
-	targetitem = /obj/item/reagent_containers/hypospray/cmo
-=======
 	name = "the chief medical officer's hypospray"
 	targetitem = /obj/item/hypospray/cmo
->>>>>>> master
 	excludefromjob = list(JOB_CHIEF_MEDICAL_OFFICER)
 	item_owner = list(JOB_CHIEF_MEDICAL_OFFICER)
 	exists_on_map = TRUE
@@ -423,7 +418,6 @@
 /obj/item/clothing/suit/hooded/ablative/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/clothing/suit/hooded/ablative)
 
-<<<<<<< HEAD
 /datum/objective_item/steal/reactive
 	name = "the reactive teleport armor"
 	targetitem = /obj/item/clothing/suit/armor/reactive/teleport
@@ -451,8 +445,6 @@
 /obj/item/documents/add_stealing_item_objective()
 	return add_item_to_steal(src, /obj/item/documents) //Any set of secret documents. Doesn't have to be NT's
 
-=======
->>>>>>> master
 /datum/objective_item/steal/nuke_core
 	name = "the heavily radioactive plutonium core from the onboard self-destruct"
 	valid_containers = list(/obj/item/nuke_core_container)

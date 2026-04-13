@@ -79,6 +79,12 @@
 	for(var/datum/spy_bounty/bounty as anything in handler.get_all_bounties())
 		if(!bounty.can_claim(spy))
 			continue
+		if(istype(bounty, /datum/spy_bounty/targets_person))
+			if(isliving(stealing))
+				var/mob/living/liver = stealing
+				if(!liver.incapacitated(IGNORE_STASIS))
+					stealing.balloon_alert(spy, "target must be dead, cuffed, or in critical!")
+					continue
 		if(!bounty.is_stealable(stealing))
 			continue
 		if(bounty.claimed)

@@ -79,16 +79,11 @@
 			If the rumors are true, it will fill it's contents based on your current reputation. Get on that grind. \
 			Contents are sorted to always be worth 100 TC. The Syndicate will only provide one surplus item per agent."
 	item = /obj/structure/closet/crate // will be replaced in purchase()
-<<<<<<< HEAD
 	cost = 20
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_SPY)
-=======
-	cost = 25
-	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS)
->>>>>>> master
 	stock_key = UPLINK_SHARED_STOCK_SURPLUS
 	/// Value of items inside the crate in TC
-	var/crate_tc_value = 50
+	var/crate_tc_value = 506
 	/// crate that will be used for the surplus crate
 	var/crate_type = /obj/structure/closet/crate
 

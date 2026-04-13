@@ -114,8 +114,6 @@
 		bounty_types[difficulty][bounty] = weight
 
 	var/list/limited_items = list()
-	var/list/show_anyways = list()
-	show_anyways += typesof(/datum/uplink_item/spy_unique/shotgun_ammo) // acquiring a shotgun is not difficult
 
 	for(var/datum/uplink_item/item as anything in SStraitor.uplink_items)
 		// limited items is populated as we go
