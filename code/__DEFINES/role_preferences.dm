@@ -52,6 +52,7 @@
 #define ROLE_SPACE_DRAGON "Space Dragon"
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
+#define ROLE_SPY_MIDROUND "Spy (Midround)"
 // monke midrounds
 #define ROLE_PLAGUERAT "Plague Rat"
 #define ROLE_CORTICAL_BORER "Cortical Borer"

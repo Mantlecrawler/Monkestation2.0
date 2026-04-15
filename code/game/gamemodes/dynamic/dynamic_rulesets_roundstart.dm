@@ -762,7 +762,7 @@
 	cost = 8
 	scaling_cost = 10 // Bit higher than traitors due to the high cap
 	minimum_players = 8
-	antag_cap = list("denominator" = 8, "offset" = 1) // should have quite a few spies to work against each other
+	antag_cap = list("denominator" = 6, "offset" = 1) // should have quite a few spies to work against each other
 	requirements = list(20,16,10,8,8,8,8,8,8,8)
 
 /datum/dynamic_ruleset/roundstart/spies/pre_execute(population)

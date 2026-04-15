@@ -5,7 +5,7 @@
 	antag_hud_name = "spy"
 	job_rank = ROLE_SPY
 	antag_moodlet = /datum/mood_event/focused
-	hijack_speed = 1
+	hijack_speed = 0.5 // Not really intended to hijack
 	ui_name = "AntagInfoSpy"
 	preview_outfit = /datum/outfit/spy
 	can_assign_self_objectives = TRUE
@@ -198,11 +198,12 @@
 
 /datum/outfit/spy
 	name = "Spy (Preview only)"
+	// Balaclava sprite is ass, otherwise I would use it for this
 	uniform = /obj/item/clothing/under/suit/black
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/fedora
-	suit = /obj/item/clothing/suit/jacket/trenchcoat
+	suit = /obj/item/clothing/suit/jacket/leather_trenchcoat
 	glasses = /obj/item/clothing/glasses/osi
 	ears = /obj/item/radio/headset
 
