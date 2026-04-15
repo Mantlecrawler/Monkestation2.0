@@ -198,12 +198,11 @@
 
 /datum/outfit/spy
 	name = "Spy (Preview only)"
-	// Balaclava sprite is ass, otherwise I would use it for this
 	uniform = /obj/item/clothing/under/suit/black
 	gloves = /obj/item/clothing/gloves/color/black
 	shoes = /obj/item/clothing/shoes/jackboots
 	head = /obj/item/clothing/head/fedora
-	// suit = /obj/item/clothing/suit/jacket/leather_trenchcoat
+	suit = /obj/item/clothing/suit/jacket/trenchcoat
 	glasses = /obj/item/clothing/glasses/osi
 	ears = /obj/item/radio/headset
 
