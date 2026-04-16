@@ -26,7 +26,7 @@
 		JOB_AI,
 		JOB_CYBORG,
 	)
-	weight = 120000
+	weight = 12
 
 /datum/round_event_control/antagonist/spy/roundstart
 	name = "Spies"
