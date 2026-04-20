@@ -57,7 +57,7 @@
 		if(!isnull(throwingdatum.thrower))
 			var/mob/living/shrodingers_clown = throwingdatum.thrower
 			if(shrodingers_clown.mind)
-				if(is_clown_job(shrodingers_clown.mind.assigned_role) || shrodingers_clown.mind.has_antag_datum(/datum/antagonist/nukeop/clownop) || shrodingers_clown.mind.has_antag_datum(/datum/antagonist/nukeop/leader/clownop) || HAS_TRAIT(shrodingers_clown, TRAIT_CLUMSY))
+				if(is_clown_job(shrodingers_clown.mind.assigned_role) || shrodingers_clown.mind.has_antag_datum(/datum/antagonist/nukeop/clownop) || shrodingers_clown.mind.has_antag_datum(/datum/antagonist/nukeop/leader/clownop) || HAS_TRAIT(shrodingers_clown, TRAIT_CLUMSY) || issilicon(shrodingers_clown))
 					knows_clownfu = TRUE
 		splat(hit_atom, knows_clownfu)
 
