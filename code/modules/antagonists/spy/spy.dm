@@ -32,6 +32,10 @@
 	. = ..()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/spy.ogg'))
 
+/datum/antagonist/spy/on_removal()
+	. = ..()
+	owner.special_role = null
+
 /datum/antagonist/spy/ui_static_data(mob/user)
 	var/list/data = ..()
 	data["uplink_location"] = uplink_location
@@ -72,7 +76,7 @@
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
-	if(!auto_create_spy_uplink(owner.current, give_backup = FALSE))
+	if(!auto_create_spy_uplink(owner.current))
 		tgui_alert(usr, "Failed to give [owner.current] a spy uplink - likely don't have a valid item to host it.", "Mission Failed")
 
 /datum/antagonist/spy/proc/bounty_handler_vv()
@@ -86,7 +90,7 @@
 
 	usr.client?.debug_variables(uplink.handler)
 
-/datum/antagonist/spy/proc/auto_create_spy_uplink(mob/living/carbon/spy, give_backup = TRUE)
+/datum/antagonist/spy/proc/auto_create_spy_uplink(mob/living/carbon/spy)
 	if(!iscarbon(spy))
 		return FALSE
 
@@ -95,11 +99,11 @@
 		spy_uplink_loc = pick(UPLINK_PEN, UPLINK_PDA)
 
 	var/obj/item/spy_uplink = spy.get_uplink_location(spy_uplink_loc)
+	var/datum/action/backup_uplink/backup = new(src)
+	backup.Grant(spy)
 	if(isnull(spy_uplink) || !create_spy_uplink(spy, spy_uplink))
-		if(give_backup)
-			var/datum/action/backup_uplink/backup = new(src)
-			backup.Grant(spy)
-			to_chat(spy, span_boldnotice("You were unable to be supplied with an uplink, so you have been given the ability to create one yourself."))
+		backup.charges = 2
+		to_chat(spy, span_boldnotice("You were unable to recieve a uplink, so your ability to create one has been given a additional charge"))
 		return FALSE
 
 	return TRUE
@@ -195,6 +199,7 @@
 /datum/action/backup_uplink
 	name = "Create Uplink"
 	desc = "Fashion a PDA, Pen or Radio Headset into a swanky Spy Uplink."
+	var/charges = 1
 	var/list/valid_types = list(
 		/obj/item/modular_computer/pda,
 		/obj/item/pen,
@@ -225,5 +230,6 @@
 	var/datum/antagonist/spy/spy_datum = target
 	spy_datum.create_spy_uplink(spy, held_thing)
 	held_thing.balloon_alert(spy, "uplink created")
-
-	qdel(src)
+	charges--
+	if(charges <= 0)
+		qdel(src)

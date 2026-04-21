@@ -397,7 +397,7 @@
 
 	location_type = machine_area.type
 	name ||= "[machine.name] Burglary"
-	help ||= "Steal \a [machine] found in [machine_area]."
+	help ||= "Steal \a [machine]. It must be stolen from [machine_area]"
 	return TRUE
 
 /datum/spy_bounty/machine/is_stealable(atom/movable/stealing)
@@ -600,6 +600,7 @@
 // Steal someone's ID card
 /datum/spy_bounty/targets_person/some_item/id
 	desired_type = /obj/item/card/id/advanced
+	black_market_prob = 100
 
 /datum/spy_bounty/targets_person/some_item/id/find_desired_thing(mob/living/carbon/human/crewmember)
 	for(var/obj/item/card/id/advanced/id in crewmember.get_all_gear())
@@ -711,13 +712,13 @@
 	return IS_WEAKREF_OF(stealing, target_bot_ref)
 
 /datum/spy_bounty/some_bot/beepsky
-	difficulty = SPY_DIFFICULTY_MEDIUM // gotta get him to stand still
+	difficulty = SPY_DIFFICULTY_MEDIUM // gotta get him to stand still (and turn him off so he doesnt stun you)
 	bot_type = /mob/living/simple_animal/bot/secbot/beepsky/officer
 	help = "Abduct Officer Beepsky - commonly found patrolling the station. \
 		Watch out, they may not take kindly to being scanned."
 
 /datum/spy_bounty/some_bot/ofitser
-	difficulty = SPY_DIFFICULTY_EASY
+	difficulty = SPY_DIFFICULTY_MEDIUM
 	bot_type = /mob/living/simple_animal/bot/secbot/beepsky/ofitser
 	help = "Abduct Prison Ofitser - commonly found guarding the Gulag."
 

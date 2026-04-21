@@ -603,14 +603,14 @@
 
 /datum/objective_item/steal/traitor/granted_stamp
 	name = "cargo's granted stamp"
-	targetitem = /obj/item/stamp/granted
+	targetitem = /obj/item/stamp
 	excludefromjob = list(JOB_CARGO_TECHNICIAN, JOB_QUARTERMASTER, JOB_SHAFT_MINER)
 	exists_on_map = TRUE
 	difficulty = 1
 	steal_hint = "Cargo often has multiple of these green stamps lying around to process paperwork."
 
 /obj/item/stamp/granted/add_stealing_item_objective()
-	return add_item_to_steal(src, /obj/item/stamp/granted)
+	return add_item_to_steal(src, /obj/item/stamp)
 
 /datum/objective_item/steal/traitor/space_law
 	name = "a book on space law"

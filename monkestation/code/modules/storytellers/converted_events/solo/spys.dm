@@ -1,9 +1,10 @@
 /datum/round_event_control/antagonist/spy
 	antag_flag = ROLE_SPY
 	cost = 0.80
-	maximum_antags = 6
+	maximum_antags = 3
 	denominator = 28
-	base_antags = 3
+	base_antags = 2
+	required_enemies = 4
 	tags = list(TAG_COMBAT, TAG_CREW_ANTAG, TAG_MUNDANE)
 	antag_datum = /datum/antagonist/spy
 	protected_roles = list(
@@ -25,6 +26,18 @@
 	restricted_roles = list(
 		JOB_AI,
 		JOB_CYBORG,
+	)
+	enemy_roles = list(
+		JOB_AI,
+		JOB_CYBORG,
+		JOB_CAPTAIN,
+		JOB_BLUESHIELD,
+		JOB_DETECTIVE,
+		JOB_HEAD_OF_SECURITY,
+		JOB_SECURITY_OFFICER,
+		JOB_SECURITY_ASSISTANT,
+		JOB_BRIG_PHYSICIAN,
+		JOB_WARDEN,
 	)
 	weight = 12
 

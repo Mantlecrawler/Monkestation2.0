@@ -1,6 +1,6 @@
 /// Spy config: Changes the amount of time between bounty refreshes
 /datum/config_entry/number/spy_bounty_refresh_timer
-	default = 12 MINUTES
+	default = 10 MINUTES
 	min_val = 2 MINUTES
 	// You can set this to like, 100 hours if you really wanted
 
@@ -13,14 +13,14 @@
 
 /// Spy config: Changes the amount of medium bounties given out at once
 /datum/config_entry/number/spy_bounty_max_medium
-	default = 2
+	default = 3
 	min_val = 1
 	max_val = 6 // More bounties would need to be added
 	integer = TRUE
 
 /// Spy config: Changes the amount of hard bounties given out at once
 /datum/config_entry/number/spy_bounty_max_hard
-	default = 2
+	default = 3
 	min_val = 1
 	max_val = 4 // More bounties would need to be added
 	integer = TRUE
@@ -52,7 +52,7 @@
  */
 /datum/spy_bounty_handler
 	/// Timer between when all bounties are refreshed.
-	var/refresh_time = 12 MINUTES
+	var/refresh_time = 10 MINUTES
 	/// timerID of the active refresh timer.
 	var/refresh_timer
 	/// Number of times we have refreshed bounties
@@ -71,8 +71,8 @@
 	/// Modified by the number of times we have refreshed bounties.
 	VAR_PRIVATE/list/base_bounties_to_give = list(
 		SPY_DIFFICULTY_EASY = 4,
-		SPY_DIFFICULTY_MEDIUM = 2,
-		SPY_DIFFICULTY_HARD = 2,
+		SPY_DIFFICULTY_MEDIUM = 3,
+		SPY_DIFFICULTY_HARD = 3,
 	)
 
 	/// Assoc list of all active bounties.
