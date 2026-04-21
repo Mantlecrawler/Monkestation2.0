@@ -51,4 +51,33 @@
 	item = /obj/item/gun/ballistic/automatic/pistol/clandestine
 	cost = SPY_UPPER_COST_THRESHOLD
 
+/datum/uplink_item/spy_unique/rocket_launcher
+	name = "Rocket Launcher"
+	desc = "A rocket launcher. Launches rockets"
+	item = /obj/item/gun/ballistic/rocketlauncher
+	cost = 16
 
+/datum/uplink_item/spy_unique/penbang
+	name = "Penbang"
+	desc = "A flashbang disguised as a normal pen - click and throw! Has no other warning upon being activated. \
+		Fuse duration depends on how far the cap is twisted."
+	item = /obj/item/pen/penbang
+	cost = 1
+
+/datum/uplink_item/spy_unique/cameraflash
+	name = "Camera Flash"
+	desc = "A camera with a high-powered flash. Can be used as a normal flash when in close proximity to a target."
+	item = /obj/item/camera/flash
+	cost = 1
+
+/datum/uplink_item/spy_unique/monster_cube_box
+	name = "Random Monster Cubes"
+	desc = "A box containing a bunch of random monster cubes. Add water and see what you get!"
+	item = /obj/item/storage/box/monkeycubes/random
+	cost = SPY_LOWER_COST_THRESHOLD // There's some really bad stuff in here but also some really mild stuff
+
+/datum/uplink_item/spy_unique/spider_bite
+	name = "Spider Bite Technique"
+	desc = "A scroll teaching you the basics of the Spider Bite martial art."
+	item = /obj/item/book/granter/martial/spider_bite
+	cost = SPY_UPPER_COST_THRESHOLD // While SCarp is firmly in the upper threshold, Spider Bite can be in either middle or upper.

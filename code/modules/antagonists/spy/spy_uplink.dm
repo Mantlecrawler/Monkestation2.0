@@ -42,9 +42,9 @@
 /datum/component/spy_uplink/proc/on_examine(obj/item/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(!is_our_spy(user))
+	if(!IS_SPY(user))
 		return
-	examine_list += span_notice("You recognize this as your <i>spy uplink</i>.")
+	examine_list += span_notice("You recognize this as a <i>spy uplink</i>.")
 	examine_list += span_notice("- [EXAMINE_HINT("Use it in hand")] to view your bounty list.")
 	examine_list += span_notice("- [EXAMINE_HINT("Right click")] with it on a bounty target to claim it.")
 
