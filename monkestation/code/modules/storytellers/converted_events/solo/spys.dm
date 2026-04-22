@@ -22,6 +22,7 @@
 		JOB_SECURITY_ASSISTANT,
 		JOB_BRIDGE_ASSISTANT,
 		JOB_BRIG_PHYSICIAN,
+		JOB_PRISONER,
 	)
 	restricted_roles = list(
 		JOB_AI,
