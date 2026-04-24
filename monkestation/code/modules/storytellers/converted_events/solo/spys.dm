@@ -40,7 +40,7 @@
 		JOB_BRIG_PHYSICIAN,
 		JOB_WARDEN,
 	)
-	weight = 12
+	weight = 10
 
 /datum/round_event_control/antagonist/spy/roundstart
 	name = "Spies"

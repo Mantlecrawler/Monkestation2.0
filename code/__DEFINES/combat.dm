@@ -175,9 +175,6 @@ DEFINE_BITFIELD(status_flags, list(
 GLOBAL_LIST_INIT(shove_disarming_types, typecacheof(list(
 	/obj/item/gun)))
 
-/// Get the active martial art of a mob.
-#define GET_ACTIVE_MARTIAL_ART(goku) (LAZYACCESS(goku.mind.martial_art, 1))
-
 //Combat object defines
 
 /// The minimum value of an item's throw_speed for it to embed (Unless it has embedded_ignore_throwspeed_threshold set to 1)
