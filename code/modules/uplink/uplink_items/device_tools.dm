@@ -305,7 +305,7 @@
 			Has to be signed by purchaser to be considered valid."
 	purchasable_from = ~(UPLINK_NUKE_OPS | UPLINK_CLOWN_OPS | UPLINK_SPY)
 	item = /obj/item/card/plasma_license
-	cost = 20
+	cost = 25
 
 /datum/uplink_item/device_tools/magboots
 	name = "Blood-Red Magboots"
