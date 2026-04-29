@@ -49,7 +49,7 @@
 	return BRUTELOSS
 
 /obj/item/healthanalyzer/attack_self(mob/user)
-	if(!user.can_read(src) || user.is_blind())
+	if(!user.can_read(src))
 		return
 
 	scanmode = (scanmode + 1) % SCANMODE_COUNT
