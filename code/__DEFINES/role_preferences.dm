@@ -52,7 +52,6 @@
 #define ROLE_SPACE_DRAGON "Space Dragon"
 #define ROLE_SPIDER "Spider"
 #define ROLE_WIZARD_MIDROUND "Wizard (Midround)"
-#define ROLE_SPY_MIDROUND "Spy (Midround)"
 // monke midrounds
 #define ROLE_PLAGUERAT "Plague Rat"
 #define ROLE_CORTICAL_BORER "Cortical Borer"
@@ -202,7 +201,6 @@ GLOBAL_LIST_INIT(special_roles, list(
 	ROLE_TERATOMA = 0,
 	ROLE_JUNIOR_LONE_OPERATIVE = 0,
 	ROLE_BINGLE = 0,
-	ROLE_SPY_MIDROUND = 0,
 //darkspawns role classes
 	ROLE_DARKSPAWN_WARLOCK = 0,
 	ROLE_DARKSPAWN_SCOUT = 0,

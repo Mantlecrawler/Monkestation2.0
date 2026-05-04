@@ -4,7 +4,7 @@
 	maximum_antags = 3
 	denominator = 28
 	base_antags = 2
-	required_enemies = 4
+	required_enemies = 3
 	tags = list(TAG_COMBAT, TAG_CREW_ANTAG, TAG_MUNDANE)
 	antag_datum = /datum/antagonist/spy
 	protected_roles = list(
@@ -46,8 +46,3 @@
 	name = "Spies"
 	roundstart = TRUE
 	earliest_start = 0 SECONDS
-
-/datum/round_event_control/antagonist/spy/midround
-	name = "Sleeper Agents (Spies)"
-	antag_flag = ROLE_SPY_MIDROUND
-	prompted_picking = TRUE

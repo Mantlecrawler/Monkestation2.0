@@ -131,11 +131,15 @@
 	return TRUE
 
 /datum/antagonist/spy/proc/give_random_objectives()
+	var/list/given_objectives = list()
 	for(var/i in 1 to rand(1, 3))
 		var/datum/objective/custom/your_mission = new()
 		your_mission.owner = owner
 		your_mission.explanation_text = pick_list_replacements(SPY_OBJECTIVE_FILE, "objective_body")
+		if(your_mission.explanation_text in given_objectives)
+			continue
 		objectives += your_mission
+		given_objectives += your_mission.explanation_text
 
 	if((length(objectives) < 3) && prob(25))
 		switch(rand(1, 2))
