@@ -128,8 +128,6 @@
 		if(UPLINK_PEN)
 			return my_pen || my_pda || my_radio
 
-	return null
-
 /**
  * ## give_uplink
  *
@@ -193,7 +191,6 @@
 		to_chat(traitor_mob, span_boldnotice(unlock_text))
 	if(antag_datum)
 		antag_datum.antag_memory += new_uplink.unlock_note + "<br>"
-	return .
 
 /// Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
 /datum/mind/proc/enslave_mind_to_creator(mob/living/creator)

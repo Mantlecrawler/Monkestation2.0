@@ -134,7 +134,6 @@
 	. = steal_process(stealing, spy, bounty)
 	qdel(active_scan_effect)
 	qdel(active_scan_cone)
-	return .
 
 /// Attempts to steal the passed atom in accordance with the passed bounty.
 /// If successful, proceeds to complete the bounty.

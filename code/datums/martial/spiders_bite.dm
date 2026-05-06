@@ -34,7 +34,7 @@
 	if(!kicking)
 		last_hit_ref = null
 		return
-	var/new_hit_ref = REF(target)
+	var/new_hit_ref = WEAKREF(target)
 	if(last_hit_ref == new_hit_ref)
 		last_hit_count++
 	else

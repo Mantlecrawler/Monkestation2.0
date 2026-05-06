@@ -8743,7 +8743,7 @@
 #include "monkestation\code\modules\storytellers\converted_events\solo\nuclear_operative.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\obsessed.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\revolutionary.dm"
-#include "monkestation\code\modules\storytellers\converted_events\solo\spys.dm"
+#include "monkestation\code\modules\storytellers\converted_events\solo\spies.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\traitor.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\wizard.dm"
 #include "monkestation\code\modules\storytellers\converted_events\solo\ghosts\nuclear_operative_ghost.dm"

@@ -221,7 +221,7 @@
 	if(!.)
 		return
 
-	var/mob/living/spy = usr
+	var/mob/living/spy = clicker
 	var/obj/item/held_thing = spy.get_active_held_item()
 	if(isnull(held_thing))
 		spy.balloon_alert(spy, "you need to hold something!")

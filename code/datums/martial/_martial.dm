@@ -63,7 +63,7 @@
 /datum/martial_art/proc/get_attacking_limb(mob/living/martial_artist, mob/living/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
 	if(!can_use(martial_artist))
-		return null
+		return
 	var/preferred_zone = get_prefered_attacking_limb(martial_artist, target)
 	if(!preferred_zone)
 		return null
