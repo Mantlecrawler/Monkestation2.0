@@ -204,10 +204,10 @@
  * Bone Spear
  */
 /obj/item/spear/bonespear //Blatant imitation of spear, but made out of bone. Not valid for explosive modification.
-	icon = 'icons/obj/items_and_weapons.dmi' //Monkestation Edit
+	icon = 'icons/obj/items_and_weapons.dmi'
 	worn_icon = 'icons/mob/clothing/back.dmi'
 	lefthand_file = 'icons/mob/inhands/weapons/melee_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi' //End Of Monke Edit
+	righthand_file = 'icons/mob/inhands/weapons/melee_righthand.dmi'
 	icon_state = "bone_spear0"
 	base_icon_state = "bone_spear0"
 	icon_prefix = "bone_spear"
@@ -234,3 +234,20 @@
 	custom_materials = list(/datum/material/bamboo = SHEET_MATERIAL_AMOUNT * 20)
 	force_unwielded = 10
 	force_wielded = 18
+
+/obj/item/spear/bonespear/unicorn
+	icon = 'icons/obj/weapons/spear.dmi'
+	worn_icon = 'icons/mob/clothing/back.dmi'
+	lefthand_file = 'icons/mob/inhands/weapons/polearms_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/weapons/polearms_righthand.dmi'
+	icon_state = "unicorn_spear0"
+	base_icon_state = "unicorn_spear0"
+	icon_prefix = "unicorn_spear"
+	name = "unicorn spear"
+	desc = "A bone spear, enhanced with unicorn hide and a horn, significantly sharper than crude bone."
+
+	throwforce = 28
+	armour_penetration = 20 //Enhanced armor piercing
+	custom_materials = list(/datum/material/bone = HALF_SHEET_MATERIAL_AMOUNT * 7)
+	force_unwielded = 14
+	force_wielded = 24
